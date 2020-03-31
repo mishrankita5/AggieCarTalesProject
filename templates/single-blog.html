@@ -8,22 +8,22 @@
     <title>AggieCarTales</title>
 
     <!-- FAVICON -->
-    <link href="img/favicon.png" rel="shortcut icon" />
+    <link href="../static/img/favicon.png" rel="shortcut icon" />
     <!-- PLUGINS CSS STYLE -->
     <!-- <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap-slider.css" />
     <!-- Font Awesome -->
-    <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Owl Carousel -->
-    <link href="plugins/slick-carousel/slick/slick.css" rel="stylesheet" />
-    <link href="plugins/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
+    <link href="../static/plugins/slick-carousel/slick/slick.css" rel="stylesheet" />
+    <link href="../static/plugins/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
     <!-- Fancy Box -->
-    <link href="plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet" />
-    <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet" />
+    <link href="../static/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet" />
+    <link href="../static/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet" />
     <!-- CUSTOM CSS -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../static/css/style.css" rel="stylesheet" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,13 +55,13 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto main-nav ">
-                  <li class="nav-item active">
+                  <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                   </li>
                   <li class="nav-item ">
                     <a class="nav-link" href="about-us.html">About Us</a>
                   </li>
-                  <li class="nav-item dropdown dropdown-slide">
+                  <li class="nav-item dropdown dropdown-slide active">
                     <a
                       class="nav-link dropdown-toggle"
                       href="#"
@@ -86,7 +86,9 @@
                     <a class="nav-link login-button" href="login.html">Login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white add-button"><i class="fa fa-plus-circle"></i> Review</a>
+                    <a class="nav-link text-white add-button" href="ad-listing.html"
+                      ><i class="fa fa-plus-circle"></i> Review</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -95,60 +97,52 @@
         </div>
       </div>
     </section>
+    <!--=================================
+=            Single Blog            =
+==================================-->
 
-    <section class="ad-post bg-gray py-5">
+    <section class="blog single-blog section">
       <div class="container">
-        <form action="#">
-          <!-- Post Your ad start -->
-          <fieldset class="border border-gary p-4 mb-5">
-            <div class="row">
-              <div class="col-lg-12">
-                <h3>Post Your Review</h3>
-              </div>
-              <div class="col-lg-6">
-                <h6 class="font-weight-bold pt-4 pb-1">Car</h6>
-                <input
-                  type="text"
-                  class="border w-100 p-2 bg-white text-capitalize"
-                  placeholder="Car model goes here"
-                />
-                <h6 class="font-weight-bold pt-4 pb-1">Review:</h6>
-                <textarea
-                  name=""
-                  id=""
-                  class="border p-3 w-100"
-                  rows="7"
-                  placeholder="Write details about your car"
-                ></textarea>
-              </div>
-              <div class="col-lg-6">
-                <h6 class="font-weight-bold pt-4 pb-1">Select Car Category:</h6>
-                <select name="" id="inputGroupSelect" class="w-100">
-                  <option value="1">Hatchback</option>
-                  <option value="2">Sedan</option>
-                  <option value="3">SUV</option>
-                  <option value="4">Sports</option>
-                </select>
-                <h6 class="font-weight-bold pt-4 pb-1">Select Photo/Video To Attach:</h6>
-                <div class="choose-file text-center my-2 py-4 rounded">
-                  <label for="file-upload">
-                    <span class="d-block font-weight-bold text-dark">Drop files anywhere to upload</span>
-                    <span class="d-block">or</span>
-                    <span class="d-block btn btn-transparent text-black-50 my-3 select-files">Select files</span>
-                    <span class="d-block">Maximum upload file size: 500 KB</span>
-                    <input type="file" class="form-control-file d-none" id="file-upload" name="file" />
-                  </label>
-                </div>
-              </div>
-            </div>
-          </fieldset>
-          <!-- Post Your ad end -->
+        <div class="row">
+          <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+            <article class="single-post">
+              <h3>Donec id dolor in erat imperdiet.</h3>
+              <ul class="list-inline">
+                <li class="list-inline-item">by <a href="">Admin</a></li>
+                <li class="list-inline-item">Mar 21, 2020</li>
+              </ul>
+              <img src="../static/images/blog/post-4.jpg" alt="article-01" />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt labore et dolore
+                magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
 
-          <!-- submit button -->
-          <button type="submit" class="btn btn-primary d-block mt-2">Post Your Review</button>
-        </form>
+              <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+              </p>
+
+              <p>
+                sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+                qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
+                tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+              </p>
+              <ul class="social-circle-icons list-inline">
+                <li class="list-inline-item text-center"><a class="fa fa-facebook" href=""></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-twitter" href=""></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-google-plus" href=""></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-linkedin" href=""></a></li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
+
     <!--============================
 =            Footer            =
 =============================-->
@@ -196,20 +190,20 @@
     </footer>
 
     <!-- JAVASCRIPTS -->
-    <script src="plugins/jQuery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/popper.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap-slider.js"></script>
+    <script src="../static/plugins/jQuery/jquery.min.js"></script>
+    <script src="../static/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/plugins/bootstrap/js/bootstrap-slider.js"></script>
     <!-- tether js -->
-    <script src="plugins/tether/js/tether.min.js"></script>
-    <script src="plugins/raty/jquery.raty-fa.js"></script>
-    <script src="plugins/slick-carousel/slick/slick.min.js"></script>
-    <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
+    <script src="../static/plugins/tether/js/tether.min.js"></script>
+    <script src="../static/plugins/raty/jquery.raty-fa.js"></script>
+    <script src="../static/plugins/slick-carousel/slick/slick.min.js"></script>
+    <script src="../static/plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="../static/plugins/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="../static/plugins/smoothscroll/SmoothScroll.min.js"></script>
     <!-- google map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
-    <script src="plugins/google-map/gmap.js"></script>
-    <script src="js/script.js"></script>
+    <script src="../static/plugins/google-map/gmap.js"></script>
+    <script src="../static/js/script.js"></script>
   </body>
 </html>
