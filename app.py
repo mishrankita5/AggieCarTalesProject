@@ -25,7 +25,7 @@ class User(db.Model):
     password = db.Column(db.VARCHAR(length=20))
     yearOfGraduation = db.Column(db.Integer)
 
-    def __init__(firstName,lastName,email,password,yearOfGraduation):
+    def __init__(self, firstName, lastName, email, password, yearOfGraduation):
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -38,11 +38,11 @@ def index():
     return render_template('index.html')
 
 @app.route('/register.html')
-def register():
+def routeRegister():
     return render_template('register.html')
 
 @app.route('/login.html')
-def login():
+def routeLogin():
     return render_template('login.html')
 
 @app.route('/about-us.html')
@@ -68,6 +68,25 @@ def singleBlog():
 @app.route('/blog.html')
 def blog():
     return render_template('blog.html')
+
+@app.route('/register', methods = ['POST'])
+def register():
+    if request.method == 'POST':
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        email = request.form['email']
+        password = request.form['password']
+        yearOfGraduation = request.form['yearOfGraduation']
+
+        if firstName == '' or lastName == '' or email == '' or password == '' or yearOfGraduation == '':
+            return render_template('register.html', message='Please enter all required fields')
+        
+        if db.session.query(User).filter(User.email == email).count() == 0:
+            data = User(firstName, lastName, email, password, yearOfGraduation)  
+            db.session.add(data)
+            db.session.commit()
+            return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+        return render_template('register.html', message='User already exists. Kindly login.')
 
 if __name__ == '__main__':
     
