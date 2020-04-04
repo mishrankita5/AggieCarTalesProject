@@ -94,25 +94,21 @@ def login():
     if request.method == 'POST':
         email = request.form['emailId']
         password = request.form['password']
-        print(password)
-        records = db.session.query(User).filter(User.email == email).all()
-        for record in records:
-            # recordObject = {'id': record.user_id,
-            #                 'user_firstName': record.firstName,
-            #                 'user_lastName': record.lastName,
-            #                 'user_email': record.email,
-            #                 'user_password': record.password,
-            #                 'user_yearOfGraduation': record.yearOfGraduation
-            #                 }
-            dbPassword = record.password
-            # print(record.password)
-            if dbPassword == password:
-               print("password match")
-            print("password don't match")
-
-        
-        # if db.session.query(User).filter(User.email == email).count() > 0:
-    return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+        if db.session.query(User).filter(User.email == email).count() > 0:
+            records = db.session.query(User).filter(User.email == email).all()
+            for record in records:
+                # recordObject = {'id': record.user_id,
+                #                 'user_firstName': record.firstName,
+                #                 'user_lastName': record.lastName,
+                #                 'user_email': record.email,
+                #                 'user_password': record.password,
+                #                 'user_yearOfGraduation': record.yearOfGraduation
+                #                 }
+                dbPassword = record.password
+                if dbPassword == password:
+                    return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+                return render_template ('login.html', message='Invalid Password. Please try again')
+        return render_template ('register.html', message='User does not exist. Please sign up')
         
 
 if __name__ == '__main__':

@@ -95,7 +95,9 @@
                 <br />
                 <p1>&nbsp;&nbsp;&nbsp;Please sign in to continue.</p1>
               </h3>
-
+              {% if message %}
+              <p class="message" color="red">&nbsp;&nbsp;{{ message | safe}}</p>
+              {% endif %}
               <form action="/login" method="POST">
                 <fieldset class="p-4">
                   <input type="text" name = "emailId" placeholder="Email" class="border p-3 w-100 my-2" />
