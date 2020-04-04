@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+app.secret_key = "randomstring123"
 
 ENV = 'dev'
 
@@ -70,6 +72,7 @@ def routeSingleBlog():
 def routeBlog():
     return render_template('blog.html')
 
+
 @app.route('/register', methods = ['POST'])
 def register():
     if request.method == 'POST':
@@ -89,27 +92,55 @@ def register():
             return render_template ('index.html', message='Welcome to Aggie Car Tales!')
         return render_template('register.html', message='User already exists. Kindly login.')
 
+
+# working login method
+# @app.route('/login' , methods =['POST'])
+# def login():
+#     if request.method == 'POST':
+#         email = request.form['emailId']
+#         password = request.form['password']
+#         if db.session.query(User).filter(User.email == email).count() > 0:
+#             records = db.session.query(User).filter(User.email == email).all()
+#             for record in records:
+#                 # recordObject = {'id': record.user_id,
+#                 #                 'user_firstName': record.firstName,
+#                 #                 'user_lastName': record.lastName,
+#                 #                 'user_email': record.email,
+#                 #                 'user_password': record.password,
+#                 #                 'user_yearOfGraduation': record.yearOfGraduation
+#                 #                 }
+#                 dbPassword = record.password
+#                 if dbPassword == password:
+#                     return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+#                 return render_template ('login.html', message='Invalid Password. Please try again')
+#         return render_template ('register.html', message='User does not exist. Please sign up')
+
 @app.route('/login' , methods =['POST'])
 def login():
     if request.method == 'POST':
         email = request.form['emailId']
         password = request.form['password']
-        if db.session.query(User).filter(User.email == email).count() > 0:
-            records = db.session.query(User).filter(User.email == email).all()
-            for record in records:
-                # recordObject = {'id': record.user_id,
-                #                 'user_firstName': record.firstName,
-                #                 'user_lastName': record.lastName,
-                #                 'user_email': record.email,
-                #                 'user_password': record.password,
-                #                 'user_yearOfGraduation': record.yearOfGraduation
-                #                 }
-                dbPassword = record.password
-                if dbPassword == password:
-                    return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+        form = request.form
+        records = db.session.query(User).filter(User.email == email).all()
+        for record in records:
+            if record:
+                db_password =  record.password
+                if(password == db_password): # if password correct
+                    session['username'] = record.firstName
+                    # firstName = record.firstName
+                    # print(firstName)
+                    return redirect('index.html')
+                 # and if password is not correct
                 return render_template ('login.html', message='Invalid Password. Please try again')
+               # flash("Incorrect password, please try again or register") 
         return render_template ('register.html', message='User does not exist. Please sign up')
+    return render_template('index.html')
         
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('login.html')
+
 
 if __name__ == '__main__':
     
