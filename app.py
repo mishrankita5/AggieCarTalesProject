@@ -7,7 +7,7 @@ ENV = 'dev'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/AggieCarTalesDB'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/AggieCarTalesDB'
 else:
     app.debug = False
     app.config['SQLALCHEMY_DATABASE_URI'] = ''
@@ -16,13 +16,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-class User(db.Model)
+class User(db.Model):
     __tablename__ = 'user'
-    user_id = db.Column(db.Integer,primary_key = True, serial = True)
+    user_id = db.Column(db.Integer,primary_key = True)
     firstName = db.Column(db.String(50))
     lastName = db.Column(db.String(50))
-    email = db.Column(db.Varchar(100))
-    password = db.Column(db.Varchar(20))
+    email = db.Column(db.VARCHAR(length=100))
+    password = db.Column(db.VARCHAR(length=20))
     yearOfGraduation = db.Column(db.Integer)
 
     def __init__(firstName,lastName,email,password,yearOfGraduation):
