@@ -23,8 +23,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer,primary_key = True)
     firstName = db.Column(db.String(50))
     lastName = db.Column(db.String(50))
-    # TODO - Make Email Unique
-    email = db.Column(db.VARCHAR(length=100))
+    email = db.Column(db.VARCHAR(length=100), unique=True)
     password = db.Column(db.VARCHAR(length=20))
     yearOfGraduation = db.Column(db.Integer)
 
@@ -34,6 +33,31 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.yearOfGraduation = yearOfGraduation
+
+
+class Review(db.Model):
+    __tablename__ = 'Review'
+    review_id = db.Column(db.Integer,primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    review = db.Column(db.VARCHAR(length=2000))
+    carName = db.Column(db.VARCHAR(length=100))
+    carModel= db.Column(db.VARCHAR(length=100))
+    carCategory = db.Column(db.VARCHAR(length=100))
+    yearOfManufacturing = db.Column(db.Integer)
+    carImage = db.Column(db.VARCHAR(length=100), nullable= True)
+  
+    
+
+    def __init__(self, user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage):
+        self.user_id = user_id
+        self.review = review
+        self.carName = carName
+        self.carModel = carModel
+        self.carCategory = carCategory
+        self.yearOfManufacturing = yearOfManufacturing
+        self.carImage = carImage
+
+
 
 
 @app.route('/')
@@ -89,7 +113,7 @@ def register():
             data = User(firstName, lastName, email, password, yearOfGraduation)  
             db.session.add(data)
             db.session.commit()
-            return render_template ('index.html', message='Welcome to Aggie Car Tales!')
+            return render_template ('login.html', message='You have registered successfully! Please log in to continue')
         return render_template('register.html', message='User already exists. Kindly login.')
 
 
@@ -136,6 +160,30 @@ def login():
         return render_template ('register.html', message='User does not exist. Please sign up')
     return render_template('index.html')
         
+
+@app.route('/ad-listing', methods = ['POST'])
+def adlisting():
+    if request.method == 'POST':
+        check_user_id = db.session.query(User).filter(User.user_id==Review.user_id).all()
+        for record in check_user_id:
+            user_id = record.user_id
+            session['username'] = record.firstName
+        review = request.form['review']
+        carName = request.form['carName']
+        carModel = request.form['carModel']
+        carCategory = request.form['carCategory']
+        yearOfManufacturing = request.form['yearOfManufacturing']
+        carImage = request.form['carImage']
+
+        if review == '' or carName == '' or carModel == '' or carCategory == '' or yearOfManufacturing == '':
+            return render_template('ad-listing.html', message='Please enter all required fields')
+        
+        
+        data = Review(user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage)  
+        db.session.add(data)
+        db.session.commit()
+        return render_template ('ad-listing.html', message='Thank you for your review!')
+     
 @app.route('/logout')
 def logout():
     session.clear()
