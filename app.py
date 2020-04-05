@@ -190,35 +190,35 @@ def search():
     if request.method == 'POST':
         search = request.form['searchText']
         search = search.lower()
-        records = db.session.query(Review).filter(func.lower(Review.carName).ilike('%'+search+'%')).join(User, Review.user_id == User.user_id).order_by(Review.review_id.desc()).all()
+        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
         reviewVar = ["" for x in range(len(records))]
         adminVar = ["" for x in range(len(records))]
+        carNameVar = ["" for x in range(len(records))]
+        carModelVar = ["" for x in range(len(records))]
         i=0
         for record in records:
             session['carName'] = record.carName
-            session['review'] = record.review
+            
             
             reviewVar[i] = record.review 
-            # adminVar[i] = record.firstName
+            adminVar[i] = record.firstName
+            carNameVar[i] = record.carName
+            carModelVar[i] = record.carModel
             i=i+1
             recordObject = {'review_id': record.review_id,
                                 'carName': record.carName,
                                 'carModel': record.carModel,
                                 'carCategory': record.carCategory,
                                 'review': record.review,
-                                'yearOfManufacturing': record.yearOfManufacturing
-                                
+                                'yearOfManufacturing': record.yearOfManufacturing,
+                                'firstName': record.firstName
 
                                 }
 
-            # for user in record.users:
-            #     user = {'firstName': user.firstName
-            #             }
-            #     recordObject['user'].append(user)
                                 
             print (recordObject)
             
-        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar) 
+        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar) 
         # return render_template ('index.html', message='Thank you for your review!')
 
 
