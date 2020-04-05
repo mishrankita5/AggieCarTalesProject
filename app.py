@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 
 app = Flask(__name__)
 
@@ -44,6 +45,7 @@ class Review(db.Model):
     carModel= db.Column(db.VARCHAR(length=100))
     carCategory = db.Column(db.VARCHAR(length=100))
     yearOfManufacturing = db.Column(db.Integer)
+    #to-do insert image as bloba
     carImage = db.Column(db.VARCHAR(length=100), nullable= True)
   
     
@@ -182,6 +184,44 @@ def adlisting():
         db.session.commit()
         return render_template ('ad-listing.html', message='Thank you for your review!')
      
+
+@app.route('/search', methods =['POST'])
+def search():
+    if request.method == 'POST':
+        search = request.form['searchText']
+        search = search.lower()
+        records = db.session.query(Review).filter(func.lower(Review.carName).ilike('%'+search+'%')).join(User, Review.user_id == User.user_id).order_by(Review.review_id.desc()).all()
+        reviewVar = ["" for x in range(len(records))]
+        adminVar = ["" for x in range(len(records))]
+        i=0
+        for record in records:
+            session['carName'] = record.carName
+            session['review'] = record.review
+            
+            reviewVar[i] = record.review 
+            # adminVar[i] = record.firstName
+            i=i+1
+            recordObject = {'review_id': record.review_id,
+                                'carName': record.carName,
+                                'carModel': record.carModel,
+                                'carCategory': record.carCategory,
+                                'review': record.review,
+                                'yearOfManufacturing': record.yearOfManufacturing
+                                
+
+                                }
+
+            # for user in record.users:
+            #     user = {'firstName': user.firstName
+            #             }
+            #     recordObject['user'].append(user)
+                                
+            print (recordObject)
+            
+        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar) 
+        # return render_template ('index.html', message='Thank you for your review!')
+
+
 @app.route('/logout')
 def logout():
     session.clear()

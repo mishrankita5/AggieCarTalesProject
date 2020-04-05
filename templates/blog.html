@@ -104,7 +104,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2 text-center">
             <!-- Title text -->
-            <h3>Search Results for " Your car.. "</h3>
+            <h3>Search Results for {{ session['carName']}}</h3>
           </div>
         </div>
       </div>
@@ -119,6 +119,7 @@
         <div class="row">
           <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
             <!-- Article 01 -->
+            {%for i in range(0, len)%} 
             <article>
               <!-- Post Image -->
               <div class="image">
@@ -127,19 +128,23 @@
               <!-- Post Title -->
               <h3>Donec id dolor in erat imperdiet.</h3>
               <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
+                <li class="list-inline-item">by <a href="">{{adminVar[i]}}</a></li>
                 <li class="list-inline-item">Mar 21, 2020</li>
               </ul>
               <!-- Post Description -->
-              <p class="">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
+              <p class="" name="review" id="review">
+                
+                {{reviewVar[i]}}
+                
+                <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
+                impedit alias magni ullam facilis perspiciatis magnam! -->
               </p>
               <!-- Read more button -->
               <a href="" class="btn btn-transparent">Read More</a>
             </article>
+            {%endfor%} 
             <!-- Article 02 -->
-            <article>
+            <!-- <article>
               <div class="post-slider">
                 <div class="item"><img src="../static/images/blog/post-2.jpg" alt="Slider-Img-01" /></div>
                 <div class="item"><img src="../static/images/blog/post-2.jpg" alt="Slider-Img-02" /></div>
@@ -155,9 +160,9 @@
                 impedit alias magni ullam facilis perspiciatis magnam!
               </p>
               <a href="" class="btn btn-transparent">Read More</a>
-            </article>
+            </article> -->
             <!-- Article 03 -->
-            <article>
+            <!-- <article>
               <div class="video overly">
                 <img src="../static/images/blog/post-3.jpg" alt="video-thumbnail" />
                 <div class="video-button video-box">
@@ -180,49 +185,49 @@
                 impedit alias magni ullam facilis perspiciatis magnam!
               </p>
               <a href="" class="btn btn-transparent">Read More</a>
-            </article>
+            </article> -->
             <!-- Article 04 -->
-            <article>
-              <!-- Post Image -->
+            <!-- <article>
+             
               <div class="image">
                 <img src="../static/images/blog/post-4.jpg" alt="article-01" />
               </div>
-              <!-- Post Title -->
+              
               <h3>Donec id dolor in erat imperdiet.</h3>
               <ul class="list-inline">
                 <li class="list-inline-item">by <a href="">Admin</a></li>
                 <li class="list-inline-item">Mar 21, 2020</li>
               </ul>
-              <!-- Post Description -->
+              
               <p class="">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
                 impedit alias magni ullam facilis perspiciatis magnam!
               </p>
-              <!-- Read more button -->
+             
               <a href="" class="btn btn-transparent">Read More</a>
-            </article>
+            </article> -->
             <!-- Article 05 -->
-            <article>
-              <!-- Post Image -->
+            <!-- <article>
+              
               <div class="image">
                 <img src="../static/images/blog/post-5.jpg" alt="article-01" />
               </div>
-              <!-- Post Title -->
+             
               <h3>Donec id dolor in erat imperdiet.</h3>
               <ul class="list-inline">
                 <li class="list-inline-item">by <a href="">Admin</a></li>
                 <li class="list-inline-item">Mar 21, 2020</li>
               </ul>
-              <!-- Post Description -->
+            
               <p class="">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
                 impedit alias magni ullam facilis perspiciatis magnam!
               </p>
-              <!-- Read more button -->
+              
               <a href="" class="btn btn-transparent">Read More</a>
-            </article>
+            </article> -->
             <!-- Article 06 -->
-            <article>
+            <!-- <article>
               <h3>Donec id dolor in erat imperdiet.</h3>
               <ul class="list-inline">
                 <li class="list-inline-item">by <a href="">Admin</a></li>
@@ -233,7 +238,7 @@
                 impedit alias magni ullam facilis perspiciatis magnam!
               </p>
               <a href="" class="btn btn-transparent">Read More</a>
-            </article>
+            </article> -->
             <!-- Pagination -->
             <nav aria-label="Page navigation example">
               <ul class="pagination">
