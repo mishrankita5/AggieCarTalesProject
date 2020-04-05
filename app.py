@@ -151,6 +151,7 @@ def login():
                 db_password =  record.password
                 if(password == db_password): # if password correct
                     session['username'] = record.firstName
+                    session['user_id'] = record.user_id
                     # firstName = record.firstName
                     # print(firstName)
                     return redirect('index.html')
@@ -164,10 +165,7 @@ def login():
 @app.route('/ad-listing', methods = ['POST'])
 def adlisting():
     if request.method == 'POST':
-        check_user_id = db.session.query(User).filter(User.user_id==Review.user_id).all()
-        for record in check_user_id:
-            user_id = record.user_id
-            session['username'] = record.firstName
+        user_id = session['user_id']
         review = request.form['review']
         carName = request.form['carName']
         carModel = request.form['carModel']
