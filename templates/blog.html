@@ -79,14 +79,19 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
+                  {%if 'username' in session %}
+                  <p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp; </p>
+                  <li class="nav-item">
+                    <a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Review</a>
+                  </li>
+                  <form action="/logout">
+                    <button  class="nav-link login-button" type="submit">Logout</button>
+                  </form>
+                  {% else %}
                   <li class="nav-item">
                     <a class="nav-link login-button" href="login.html">Login</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white add-button" href="ad-listing.html"
-                      ><i class="fa fa-plus-circle"></i> Review</a
-                    >
-                  </li>
+                  {% endif %}
                 </ul>
               </div>
             </nav>
@@ -104,7 +109,11 @@
         <div class="row">
           <div class="col-md-8 offset-md-2 text-center">
             <!-- Title text -->
+            {%if session['carName'] == 'blogClick'%}
+            <h3>Latest Reviews</h3>
+            {% else %}
             <h3>Search Results for {{ session['carName']}}</h3>
+            {% endif%}
           </div>
         </div>
       </div>
@@ -134,115 +143,28 @@
               <ul class="list-inline">
                 <li class="list-inline-item"><b><font color="grey">Review by:</font> </b> {{adminVar[i]}}</li>
                 <li class="list-inline-item"> <b><font color="grey">Review date: </font></b> Mar 21, 2020</li>
+                <li class="list-inline-item" name="reviewId"> <b><font color="grey">Review Id: </font></b> {{reviewIdVar[i]}}</li>
+                <script>
+                  localStorage["key"] = reviewIdVar[i]
+                </script>
               </ul>
               <!-- Post Description -->
               <p class="" name="review" id="review">
                 
                 {{reviewVar[i]}}
                 
-                <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam! -->
               </p>
               <!-- Read more button -->
-              <a href="" class="btn btn-transparent">Read More</a>
+              <!-- <form  action="/readMore" method = "POST">
+                <a href="single-blog.html" value ="readMore" class="btn btn-transparent">Read More</a>
+              </form> -->
+
+              <form action="/readMore" method = "POST">
+								<button value ="readMore" class="btn btn-transparent" type="submit">Read More</button>
+							</form>
+                
             </article>
             {%endfor%} 
-            <!-- Article 02 -->
-            <!-- <article>
-              <div class="post-slider">
-                <div class="item"><img src="../static/images/blog/post-2.jpg" alt="Slider-Img-01" /></div>
-                <div class="item"><img src="../static/images/blog/post-2.jpg" alt="Slider-Img-02" /></div>
-                <div class="item"><img src="../static/images/blog/post-2.jpg" alt="Slider-Img-03" /></div>
-              </div>
-              <h3>Donec id dolor in erat imperdiet.</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
-                <li class="list-inline-item">Mar 21, 2020</li>
-              </ul>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
-              </p>
-              <a href="" class="btn btn-transparent">Read More</a>
-            </article> -->
-            <!-- Article 03 -->
-            <!-- <article>
-              <div class="video overly">
-                <img src="../static/images/blog/post-3.jpg" alt="video-thumbnail" />
-                <div class="video-button video-box">
-                  <a href="javascript:void(0)">
-                    <img
-                      src="../static/images/blog/video-icon.png"
-                      data-video="https://www.youtube.com/embed/g3-VxLQO7do?autoplay=1"
-                      alt="video-icon"
-                    />
-                  </a>
-                </div>
-              </div>
-              <h3>Donec id dolor in erat imperdiet.</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
-                <li class="list-inline-item">Mar 21, 2020</li>
-              </ul>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
-              </p>
-              <a href="" class="btn btn-transparent">Read More</a>
-            </article> -->
-            <!-- Article 04 -->
-            <!-- <article>
-             
-              <div class="image">
-                <img src="../static/images/blog/post-4.jpg" alt="article-01" />
-              </div>
-              
-              <h3>Donec id dolor in erat imperdiet.</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
-                <li class="list-inline-item">Mar 21, 2020</li>
-              </ul>
-              
-              <p class="">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
-              </p>
-             
-              <a href="" class="btn btn-transparent">Read More</a>
-            </article> -->
-            <!-- Article 05 -->
-            <!-- <article>
-              
-              <div class="image">
-                <img src="../static/images/blog/post-5.jpg" alt="article-01" />
-              </div>
-             
-              <h3>Donec id dolor in erat imperdiet.</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
-                <li class="list-inline-item">Mar 21, 2020</li>
-              </ul>
-            
-              <p class="">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
-              </p>
-              
-              <a href="" class="btn btn-transparent">Read More</a>
-            </article> -->
-            <!-- Article 06 -->
-            <!-- <article>
-              <h3>Donec id dolor in erat imperdiet.</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">by <a href="">Admin</a></li>
-                <li class="list-inline-item">Nov 22,2016</li>
-              </ul>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iusto tempore voluptatum blanditiis
-                impedit alias magni ullam facilis perspiciatis magnam!
-              </p>
-              <a href="" class="btn btn-transparent">Read More</a>
-            </article> -->
             <!-- Pagination -->
             <nav aria-label="Page navigation example">
               <ul class="pagination">

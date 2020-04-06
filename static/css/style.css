@@ -83,6 +83,10 @@ label {
   font-size: 16px;
 }
 
+.database_container{
+  overflow: auto;
+}
+
 @media (max-width: 480px) {
   .nav-pills .nav-link {
     font-size: 12px;

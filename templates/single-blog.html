@@ -40,7 +40,7 @@
           <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light navigation">
               <a class="navbar-brand" href="index.html">
-                <img src="images/logo.png" alt="" />
+                <img src="../static/images/logo.png" alt="" />
               </a>
               <button
                 class="navbar-toggler"
@@ -79,14 +79,19 @@
                   </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
+                  {%if 'username' in session %}
+                  <p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp; </p>
+                  <li class="nav-item">
+                    <a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Review</a>
+                  </li>
+                  <form action="/logout">
+                    <button  class="nav-link login-button" type="submit">Logout</button>
+                  </form>
+                  {% else %}
                   <li class="nav-item">
                     <a class="nav-link login-button" href="login.html">Login</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white add-button" href="ad-listing.html"
-                      ><i class="fa fa-plus-circle"></i> Review</a
-                    >
-                  </li>
+                  {% endif %}
                 </ul>
               </div>
             </nav>
