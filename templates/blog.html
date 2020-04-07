@@ -142,8 +142,9 @@
               </ul>
               <ul class="list-inline">
                 <li class="list-inline-item"><b><font color="grey">Review by:</font> </b> {{adminVar[i]}}</li>
-                <li class="list-inline-item"> <b><font color="grey">Review date: </font></b> Mar 21, 2020</li>
+                <li class="list-inline-item" > <b><font color="grey">Review date: </font></b> Mar 21, 2020</li>
                 <li class="list-inline-item" name="reviewId"> <b><font color="grey">Review Id: </font></b> {{reviewIdVar[i]}}</li>
+                
                 <script>
                   localStorage["key"] = reviewIdVar[i]
                 </script>
@@ -160,25 +161,14 @@
               </form> -->
 
               <form action="/readMore" method = "POST">
+                <input type="hidden" name="tag" value= {{reviewIdVar[i]}}  >
 								<button value ="readMore" class="btn btn-transparent" type="submit">Read More</button>
 							</form>
                 
             </article>
             {%endfor%} 
             <!-- Pagination -->
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          
           </div>
         </div>
       </div>

@@ -223,6 +223,39 @@ def search():
             carModelVar[i] = record.carModel
             reviewIdVar[i] = record.review_id
             i=i+1
+            
+        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar) 
+        
+
+
+@app.route('/readMore', methods =['POST'])
+def readMore():
+    if request.method == 'POST':
+        
+        # reviewId = 1
+        reviewId = request.form['tag']
+        print(reviewId) 
+        
+        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(Review.review_id == reviewId).order_by(Review.review_id.desc()).all()
+        # reviewVar = ["" for x in range(len(records))]
+        reviewVar=""
+        adminVar = ""
+        carNameVar = ""
+        carModelVar = ""
+        carCategoryVar = ""
+        carYearOfManufacturing=""
+        i=0
+        for record in records:
+            session['carName'] = record.carName
+            
+            
+            reviewVar = record.review 
+            adminVar= record.firstName
+            carNameVar = record.carName
+            carModelVar = record.carModel
+            carCategoryVar=record.carCategory
+            carYearOfManufacturingVar=record.yearOfManufacturing
+            i=i+1
             recordObject = {'review_id': record.review_id,
                                 'carName': record.carName,
                                 'carModel': record.carModel,
@@ -233,52 +266,12 @@ def search():
 
                                 }
 
-                                
-            print (recordObject)
-            
-        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar) 
-        
-
-
-# @app.route('/readMore', methods =['POST'])
-# def readMore():
-#     print("hi")
-#     if request.method == 'POST':
-#         # search = request.form['searchText']
-#         reviewId = 1
-#         print(reviewId) 
-#         search = search.lower()
-#         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
-#         reviewVar = ["" for x in range(len(records))]
-#         adminVar = ["" for x in range(len(records))]
-#         carNameVar = ["" for x in range(len(records))]
-#         carModelVar = ["" for x in range(len(records))]
-#         i=0
-#         for record in records:
-#             session['carName'] = record.carName
-            
-            
-#             reviewVar[i] = record.review 
-#             adminVar[i] = record.firstName
-#             carNameVar[i] = record.carName
-#             carModelVar[i] = record.carModel
-#             i=i+1
-#             recordObject = {'review_id': record.review_id,
-#                                 'carName': record.carName,
-#                                 'carModel': record.carModel,
-#                                 'carCategory': record.carCategory,
-#                                 'review': record.review,
-#                                 'yearOfManufacturing': record.yearOfManufacturing,
-#                                 'firstName': record.firstName
-
-#                                 }
-
                               
-#             print (recordObject)
+            print (recordObject)
        
             
-#         return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar) 
-#         # return render_template ('index.html', message='Thank you for your review!')
+        return render_template("single-blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,carCategoryVar=carCategoryVar,carYearOfManufacturingVar=carYearOfManufacturingVar) 
+        #return render_template ('single-blog.html', message='Thank you for your review!')
 
 @app.route('/showDatabase', methods=['POST'])
 def showDatabase():
