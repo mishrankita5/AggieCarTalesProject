@@ -137,33 +137,14 @@ def register():
         return render_template('register.html', message='User already exists. Kindly login.')
 
 
-# working login method
-# @app.route('/login' , methods =['POST'])
-# def login():
-#     if request.method == 'POST':
-#         email = request.form['emailId']
-#         password = request.form['password']
-#         if db.session.query(User).filter(User.email == email).count() > 0:
-#             records = db.session.query(User).filter(User.email == email).all()
-#             for record in records:
-#                 # recordObject = {'id': record.user_id,
-#                 #                 'user_firstName': record.firstName,
-#                 #                 'user_lastName': record.lastName,
-#                 #                 'user_email': record.email,
-#                 #                 'user_password': record.password,
-#                 #                 'user_yearOfGraduation': record.yearOfGraduation
-#                 #                 }
-#                 dbPassword = record.password
-#                 if dbPassword == password:
-#                     return render_template ('index.html', message='Welcome to Aggie Car Tales!')
-#                 return render_template ('login.html', message='Invalid Password. Please try again')
-#         return render_template ('register.html', message='User does not exist. Please sign up')
 
 @app.route('/login' , methods =['POST'])
 def login():
     if request.method == 'POST':
         email = request.form['emailId']
         password = request.form['password']
+        if email == '' or password == '':
+            return render_template('login.html', message='Please enter all required fields')
         form = request.form
         records = db.session.query(User).filter(User.email == email).all()
         for record in records:
@@ -172,8 +153,6 @@ def login():
                 if(password == db_password): # if password correct
                     session['username'] = record.firstName
                     session['user_id'] = record.user_id
-                    # firstName = record.firstName
-                    # print(firstName)
                     return redirect('index.html')
                  # and if password is not correct
                 return render_template ('login.html', message='Invalid Password. Please try again')
@@ -231,13 +210,8 @@ def search():
 @app.route('/readMore', methods =['POST'])
 def readMore():
     if request.method == 'POST':
-        
-        # reviewId = 1
         reviewId = request.form['tag']
-        print(reviewId) 
-        
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(Review.review_id == reviewId).order_by(Review.review_id.desc()).all()
-        # reviewVar = ["" for x in range(len(records))]
         reviewVar=""
         adminVar = ""
         carNameVar = ""
@@ -264,14 +238,11 @@ def readMore():
                                 'yearOfManufacturing': record.yearOfManufacturing,
                                 'firstName': record.firstName
 
-                                }
-
-                              
-            print (recordObject)
-       
-            
+            }
+           
         return render_template("single-blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,carCategoryVar=carCategoryVar,carYearOfManufacturingVar=carYearOfManufacturingVar) 
-        #return render_template ('single-blog.html', message='Thank you for your review!')
+
+        
 
 @app.route('/showDatabase', methods=['POST'])
 def showDatabase():
