@@ -119,7 +119,7 @@
             <article>
               <!-- Post Image -->
               <div class="image">
-                <img src="../static/images/blog/post-1.jpg" alt="article-01" />
+                <img src="data:;base64,{{ carImageVar[i] }}" alt="article-01" />
               </div>
               <!-- Post Title -->
               <!-- <h3>Donec id dolor in erat imperdiet.</h3> -->
@@ -129,7 +129,7 @@
               </ul>
               <ul class="list-inline">
                 <li class="list-inline-item"><b><font color="grey">Review by:</font> </b> {{adminVar[i]}}</li>
-                <li class="list-inline-item" > <b><font color="grey">Review date: </font></b> Mar 21, 2020</li>
+                <li class="list-inline-item" > <b><font color="grey">Review date: </font></b> {{reviewDateVar[i]}}</li>
                 <li class="list-inline-item" name="reviewId"> <b><font color="grey">Review Id: </font></b> {{reviewIdVar[i]}}</li>
                 
                 <script>

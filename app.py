@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from base64 import b64encode
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -45,12 +47,12 @@ class Review(db.Model):
     carModel= db.Column(db.VARCHAR(length=100))
     carCategory = db.Column(db.VARCHAR(length=100))
     yearOfManufacturing = db.Column(db.Integer)
-    #to-do insert image as bloba
-    carImage = db.Column(db.VARCHAR(length=100), nullable= True)
+    carImage = db.Column(db.LargeBinary)
+    reviewDate = db.Column(db.Date)
   
     
 
-    def __init__(self, user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage):
+    def __init__(self, user_id, review, carName, carModel, carCategory, yearOfManufacturing, carImage,reviewDate):
         self.user_id = user_id
         self.review = review
         self.carName = carName
@@ -58,6 +60,7 @@ class Review(db.Model):
         self.carCategory = carCategory
         self.yearOfManufacturing = yearOfManufacturing
         self.carImage = carImage
+        self.reviewDate=reviewDate
 
 
 
@@ -96,13 +99,15 @@ def routeSingleBlog():
 
 @app.route('/blog.html')
 def routeBlog():
-        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).order_by(Review.review_id.desc()).all()
+        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).order_by(Review.review_id.desc()).all()
         session['carName'] = 'blogClick'
         reviewVar = ["" for x in range(len(records))]
         adminVar = ["" for x in range(len(records))]
         carNameVar = ["" for x in range(len(records))]
         carModelVar = ["" for x in range(len(records))]
         reviewIdVar = ["" for x in range(len(records))]
+        carImageVar = ["" for x in range(len(records))]
+        reviewDateVar = ["" for x in range(len(records))]
         i=0
         for record in records:
             reviewVar[i] = record.review 
@@ -110,8 +115,11 @@ def routeBlog():
             carNameVar[i] = record.carName
             carModelVar[i] = record.carModel
             reviewIdVar[i] = record.review_id
+            carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+            reviewDateVar[i] = record.reviewDate
+
             i=i+1
-        return render_template('blog.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar)
+        return render_template('blog.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar)
 
 @app.route('/database.html')
 def routeDatabase():
@@ -163,6 +171,8 @@ def login():
 
 @app.route('/ad-listing', methods = ['POST'])
 def adlisting():
+    now = datetime.today()
+    print (now)
     if request.method == 'POST':
         user_id = session['user_id']
         review = request.form['review']
@@ -170,13 +180,15 @@ def adlisting():
         carModel = request.form['carModel']
         carCategory = request.form['carCategory']
         yearOfManufacturing = request.form['yearOfManufacturing']
-        carImage = request.form['carImage']
+        carImage = request.files['fileimg'].read()
+        reviewDate = datetime.strftime(now, "%Y-%m-%d")
+        print(reviewDate)
 
         if review == '' or carName == '' or carModel == '' or carCategory == '' or yearOfManufacturing == '':
             return render_template('ad-listing.html', message='Please enter all required fields')
         
         
-        data = Review(user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage)  
+        data = Review(user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage,reviewDate)  
         db.session.add(data)
         db.session.commit()
         return render_template ('ad-listing.html', message='Thank you for your review!')
@@ -187,12 +199,14 @@ def search():
     if request.method == 'POST':
         search = request.form['searchText']
         search = search.lower()
-        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
+        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
         reviewVar = ["" for x in range(len(records))]
         adminVar = ["" for x in range(len(records))]
         carNameVar = ["" for x in range(len(records))]
         carModelVar = ["" for x in range(len(records))]
         reviewIdVar = ["" for x in range(len(records))]
+        carImageVar = ["" for x in range(len(records))]
+        reviewDateVar = ["" for x in range(len(records))]
         i=0
         for record in records:
             session['carName'] = record.carName
@@ -201,9 +215,11 @@ def search():
             carNameVar[i] = record.carName
             carModelVar[i] = record.carModel
             reviewIdVar[i] = record.review_id
+            carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+            reviewDateVar[i] = record.reviewDate
             i=i+1
             
-        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar) 
+        return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar,carImageVar=carImageVar, reviewDateVar=reviewDateVar) 
         
 
 
@@ -211,13 +227,15 @@ def search():
 def readMore():
     if request.method == 'POST':
         reviewId = request.form['tag']
-        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing).filter(Review.review_id == reviewId).order_by(Review.review_id.desc()).all()
+        records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(Review.review_id==reviewId).order_by(Review.review_id.desc()).all()
         reviewVar=""
         adminVar = ""
         carNameVar = ""
         carModelVar = ""
         carCategoryVar = ""
-        carYearOfManufacturing=""
+        carYearOfManufacturingVar=""
+        carImageVar = ""
+        reviewDateVar =""
         i=0
         for record in records:
             session['carName'] = record.carName
@@ -229,20 +247,14 @@ def readMore():
             carModelVar = record.carModel
             carCategoryVar=record.carCategory
             carYearOfManufacturingVar=record.yearOfManufacturing
+            carImageVar = b64encode(record.carImage).decode("utf-8")
+            reviewDateVar=record.reviewDate
             i=i+1
-            recordObject = {'review_id': record.review_id,
-                                'carName': record.carName,
-                                'carModel': record.carModel,
-                                'carCategory': record.carCategory,
-                                'review': record.review,
-                                'yearOfManufacturing': record.yearOfManufacturing,
-                                'firstName': record.firstName
-
-            }
+         
            
-        return render_template("single-blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,carCategoryVar=carCategoryVar,carYearOfManufacturingVar=carYearOfManufacturingVar) 
+        return render_template("single-blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,carCategoryVar=carCategoryVar,carYearOfManufacturingVar=carYearOfManufacturingVar, carImageVar=carImageVar,reviewDateVar=reviewDateVar) 
 
-        
+
 
 @app.route('/showDatabase', methods=['POST'])
 def showDatabase():

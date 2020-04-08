@@ -94,11 +94,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-            {%for i in range(0, len)%} 
+            
             <article class="single-post">
               <h3>Review for {{carNameVar}} {{carModelVar}} </h3>
           
-              <img src="../static/images/blog/post-4.jpg" alt="article-01" />
+              <img src="data:;base64,{{ carImageVar }}"  alt="article-01" />
               <ul class="list-inline">
                 <li class="list-inline-item"><b><font color="grey">Car Name:</font></b>  {{carNameVar}}</li>
                 <li class="list-inline-item"><b><font color="grey">Car Model: </font></b> {{carModelVar}}</li>
@@ -109,7 +109,7 @@
               </ul>
               <ul class="list-inline">
                 <li class="list-inline-item"><b><font color="grey">Review by: </font></b>{{adminVar}}</li>
-                <li class="list-inline-item"><b><font color="grey">Review date: </font></b>Mar 21, 2020</li>
+                <li class="list-inline-item"><b><font color="grey">Review date: </font></b>{{reviewDateVar}}</li>
               </ul>
               <p>
                 {{reviewVar}}
@@ -122,7 +122,7 @@
                 <li class="list-inline-item text-center"><a class="fa fa-linkedin" href=""></a></li>
               </ul>
             </article>
-            {%endfor%} 
+           
           </div>
         </div>
       </div>
