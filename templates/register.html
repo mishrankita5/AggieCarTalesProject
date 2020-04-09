@@ -84,15 +84,12 @@
               {% endif %}
               <form action="/register" method = "POST">
                 <fieldset class="p-4">
+                  <img src="../static/images/register_squirrel.png" class="img-fluid w-25" alt="Card image cap2" />
                   <input placeholder="First Name" name ="firstName" class="border p-3 w-100 my-2" />
                   <input placeholder="Last Name" name = "lastName" class="border p-3 w-100 my-2" />
                   <input type="email" name ="email" placeholder="Email*" class="border p-3 w-100 my-2" />
                   <input type="password" name = "password" placeholder="Password*" class="border p-3 w-100 my-2" />
                   <input placeholder="Graduation Year" name ="yearOfGraduation" class="border p-3 w-100 my-2" />
-                  <div class="loggedin-forgot d-inline-flex my-3">
-                    <input type="checkbox" id="registering" class="mt-1" />
-                    <label for="registering" class="px-2">On register, you accept our Terms & Conditions.</label>
-                  </div>
                   <button
                     type="submit" value = "Register"
                     class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold"

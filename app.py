@@ -67,7 +67,29 @@ class Review(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate, Review.carCategory).order_by(Review.review_id.desc()).all()
+    reviewVar = ["" for x in range(len(records))]
+    adminVar = ["" for x in range(len(records))]
+    carNameVar = ["" for x in range(len(records))]
+    carModelVar = ["" for x in range(len(records))]
+    reviewIdVar = ["" for x in range(len(records))]
+    carImageVar = ["" for x in range(len(records))]
+    reviewDateVar = ["" for x in range(len(records))]
+    carCategoryVar = ["" for x in range(len(records))]
+    i=0
+    for record in records:
+        reviewVar[i] = record.review 
+        adminVar[i] = record.firstName
+        carNameVar[i] = record.carName
+        carModelVar[i] = record.carModel
+        reviewIdVar[i] = record.review_id
+        carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+        reviewDateVar[i] = record.reviewDate
+        carCategoryVar[i] =record.carCategory
+
+        i=i+1
+    return render_template('index.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar,carCategoryVar=carCategoryVar)
+    #return render_template('index.html')
 
 @app.route('/register.html')
 def routeRegister():
@@ -83,7 +105,29 @@ def routeAbout():
 
 @app.route('/index.html')
 def routeHome():
-    return render_template('index.html')
+    records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate, Review.carCategory).order_by(Review.review_id.desc()).all()
+    reviewVar = ["" for x in range(len(records))]
+    adminVar = ["" for x in range(len(records))]
+    carNameVar = ["" for x in range(len(records))]
+    carModelVar = ["" for x in range(len(records))]
+    reviewIdVar = ["" for x in range(len(records))]
+    carImageVar = ["" for x in range(len(records))]
+    reviewDateVar = ["" for x in range(len(records))]
+    carCategoryVar = ["" for x in range(len(records))]
+    i=0
+    for record in records:
+        reviewVar[i] = record.review 
+        adminVar[i] = record.firstName
+        carNameVar[i] = record.carName
+        carModelVar[i] = record.carModel
+        reviewIdVar[i] = record.review_id
+        carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+        reviewDateVar[i] = record.reviewDate
+        carCategoryVar[i] =record.carCategory
+
+        i=i+1
+    return render_template('index.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar,carCategoryVar=carCategoryVar)
+  
 
 @app.route('/ad-listing.html')
 def routeAddListing():
@@ -141,7 +185,7 @@ def register():
             data = User(firstName, lastName, email, password, yearOfGraduation)  
             db.session.add(data)
             db.session.commit()
-            return render_template ('login.html', message='You have registered successfully! Please log in to continue')
+            return render_template ('register_success.html')
         return render_template('register.html', message='User already exists. Kindly login.')
 
 
