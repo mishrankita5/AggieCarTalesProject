@@ -88,11 +88,10 @@ def routeAbout():
 @app.route('/index.html')
 def routeHome():
     return render_template('index.html')
-  
 
-@app.route('/ad-listing.html')
+@app.route('/addreview.html')
 def routeAddListing():
-    return render_template('ad-listing.html')
+    return render_template('addreview.html')
 
 @app.route('/user-profile.html')
 def routeUserProfile():
@@ -174,8 +173,8 @@ def login():
     return render_template('index.html')
         
 
-@app.route('/ad-listing', methods = ['POST'])
-def adlisting():
+@app.route('/addreview', methods = ['POST'])
+def addreview():
     now = datetime.today()
     print (now)
     if request.method == 'POST':
@@ -190,7 +189,7 @@ def adlisting():
         print(reviewDate)
 
         if review == '' or carName == '' or carModel == '' or carCategory == '' or yearOfManufacturing == '':
-            return render_template('ad-listing.html', message='Please enter all required fields')
+            return render_template('addreview.html', message='Please enter all required fields')
         
         
         data = Review(user_id, review, carName, carModel, carCategory,yearOfManufacturing,carImage,reviewDate)  

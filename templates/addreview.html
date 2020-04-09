@@ -69,7 +69,7 @@
                   {%if 'username' in session %}
                   <p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</p>
                   <li class="nav-item">
-                    <a class="nav-link-active text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Review</a>
+                    <a class="nav-link-active text-white add-button" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
                   </li>
                   <form action="/logout">
                     <button  class="nav-link login-button" type="submit">Logout</button>
@@ -92,7 +92,7 @@
         {% if message %}
               <p class="message" color="red">&nbsp;&nbsp;{{ message | safe}}</p>
               {% endif %}
-        <form action="/ad-listing" method = "POST" enctype="multipart/form-data">
+        <form action="/addreview" method = "POST" enctype="multipart/form-data">
           <!-- Post Your ad start -->
           <fieldset class="border border-gary p-4 mb-5">
             <div class="row">
@@ -139,7 +139,7 @@
           <!-- Post Your ad end -->
 
           <!-- submit button -->
-          <button type="submit" value = "ad-listing" class="btn btn-primary d-block mt-2">Post Your Review</button>
+          <button type="submit" value = "addreview" class="btn btn-primary d-block mt-2">Post Your Review</button>
         </form>
       </div>
     </section>
