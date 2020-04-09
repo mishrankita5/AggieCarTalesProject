@@ -265,7 +265,7 @@ def readMore():
 def showDatabase():
     if request.method == 'POST':
         userRecords = db.session.query(User).all()
-        reviewRecords = db.session.query(Review).all()     
+        reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
     return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)
 
 
