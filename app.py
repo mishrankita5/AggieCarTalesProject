@@ -8,14 +8,14 @@ app = Flask(__name__)
 
 app.secret_key = "randomstring123"
 
-ENV = 'dev'
+ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/AggieCarTalesDB'
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://urmqezgjyddeej:d68b9e672eb98dfedc74d6afab4a19f0d1e3209b487f5082aadcb67fdc62855a@ec2-18-209-187-54.compute-1.amazonaws.com:5432/d3q1sup06qcj5n'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
