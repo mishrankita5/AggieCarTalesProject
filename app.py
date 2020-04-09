@@ -69,6 +69,10 @@ class Review(db.Model):
 def index():
     return render_template('index.html')
 
+@app.route('/404.html')
+def routeTrouble():
+    return render_template('404.html')
+
 @app.route('/register.html')
 def routeRegister():
     return render_template('register.html')

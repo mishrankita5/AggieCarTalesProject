@@ -386,22 +386,23 @@ button {
   bottom: -24px;
   left: 0;
   right: 0;
-  width: 127px;
+  width: 200px;
   height: 2px;
-  background-color: #e0e0e0;
+  background-color: #000000;
 }
 
 .section-title h2:after {
   content: " ";
-  display: block;
+  display: none;
+  visibility: hidden;
   margin: 0 auto;
   position: absolute;
   bottom: -25px;
   left: 0;
   right: 0;
-  width: 40px;
-  height: 5px;
-  background-color: #000000;
+  width: 200px;
+  height: 1px;
+  background-color: #ffffff;
 }
 
 .section-title p {

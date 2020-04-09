@@ -8,7 +8,7 @@
     <title>AggieCarTales</title>
 
     <!-- FAVICON -->
-    <link href="../static/img/favicon.png" rel="shortcut icon" />
+    <link href="../static/images/favicon1.png" rel="shortcut icon" />
     <!-- PLUGINS CSS STYLE -->
     <!-- <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
     <!-- Bootstrap -->
@@ -126,22 +126,19 @@
               <!-- Post Title -->
               <!-- <h3>Donec id dolor in erat imperdiet.</h3> -->
               <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="grey">Car Name:</font></b>  {{carNameVar[i]}}</li>
-                <li class="list-inline-item"><b><font color="grey">Car Model: </font></b> {{carModelVar[i]}}</li>
+                <li class="list-inline-item"><b><font color="black">Car Name:</font></b> <font color="black">{{carNameVar[i]}}</font> </li>
+                <li class="list-inline-item"><b><font color="black">Car Model: </font></b> <font color="black">{{carModelVar[i]}}</font></li>
               </ul>
               <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="grey">Review by:</font> </b> {{adminVar[i]}}</li>
-                <li class="list-inline-item" > <b><font color="grey">Review date: </font></b> {{reviewDateVar[i]}}</li>
+                <li class="list-inline-item"><b><font color="black">Review by:</font> </b> <font color="black">{{adminVar[i]}}</font></li>
+                <li class="list-inline-item" > <b><font color="black">Date Posted: </font></b> <font color="black">{{reviewDateVar[i]}}</font></li>
                 <!-- <li class="list-inline-item" name="reviewId"> <b><font color="grey">Review Id: </font></b> {{reviewIdVar[i]}}</li> -->
                 
-                <script>
-                  localStorage["key"] = reviewIdVar[i]
-                </script>
               </ul>
               <!-- Post Description -->
               <p class="" name="review" id="review">
-                
-                {{reviewVar[i]}}
+                <font color="black"> {{reviewVar[i]}}</font>
+               
                 
               </p>
 
