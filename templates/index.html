@@ -73,7 +73,7 @@
 							{%if 'username' in session %}
 							<p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp; </p>
 							<li class="nav-item">
-								<a class="nav-link text-white add-button" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
+								<a class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
 							</li>
 							<form action="/logout">
 								<button  class="nav-link login-button" type="submit">Logout</button>
@@ -145,7 +145,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2><font color ="black">Trending Cars</font></h2>
+					<h2><font color="black" size="6" >Trending Cars</font></h2>
 				</div>
 			</div>
 		</div>
@@ -319,25 +319,27 @@
 			<div class="col-12">
 				<!-- Section title -->
 				<div class="section-title">
-					<h2><font color ="black">Contact Us</font></h2>
+					<h2><font color="black" size="6" >Contact Us</font></h2>
 				</div>
 				<div class="row">
 					<div class="col-lg-4 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-6">
-						<img src="../static/images/contact_us.png" class="img-fluid w-100" alt="Card image cap" />
+						<img src="../static/images/contact_us_image.jpg" class="img-fluid w-100" alt="Feedback image Revvie" />
 					</div>
 					<div class="col-lg-8 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-6">
-						<p><font color="black">They say, ‘Your first car is your first love’. Compatibility and trust is the foundation of any
-							relationship. Buying your first car can be really tricky and overwhelming, and lack of proper research
-							can lead you into a really toxic & complicated relationship.  </font></p>
+						<p><font color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
 
 							<h6 class="font-weight-bold pt-4 pb-1">Feedback:</h6>
 							<textarea
 							  name="review"
 							  id=""
 							  class="border p-3 w-100"
-							  rows="7"
-							  placeholder="We will love to hear from you.."
+							  rows="3"
+							  placeholder="We would love to hear from you.."
 							></textarea>
+					</br></br>
+							<div class="form-group col-md-3 align-self-center">
+								<button type="submit" value ="" class="btn bg-primary text-white">Submit</button>
+							</div>
 					</div>
 				</div>
 			</div>

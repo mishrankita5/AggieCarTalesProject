@@ -107,6 +107,11 @@ label {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 }
 
+.about-img{
+  padding: 0 0 0 0!important;
+  
+
+}
 .nav-pills.with-background .nav-link:hover {
   color: #5672f9;
 }
@@ -138,13 +143,25 @@ label {
 .nav-pills.transparent .nav-link {
   background: transparent;
   margin-bottom: 20px;
-  color: #848484;
+  color: #000;
   font-size: 24px;
 }
 
 @media (max-width: 768px) {
   .nav-pills.transparent .nav-link {
     font-size: 17px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-img {
+    padding: 0 0 0 80px!important;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-img-bottom {
+    padding: 0 0 0 30px!important;
   }
 }
 
@@ -2058,6 +2075,13 @@ ul.pagination .active a {
 @media (max-width: 768px) {
   .widget.search {
     margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-team {
+    width:auto;
+    padding: 0 100px 0 100px !important;
   }
 }
 
