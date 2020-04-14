@@ -107,11 +107,6 @@ label {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 }
 
-.about-img{
-  padding: 0 0 0 0!important;
-  
-
-}
 .nav-pills.with-background .nav-link:hover {
   color: #5672f9;
 }
@@ -153,29 +148,29 @@ label {
   }
 }
 
-@media (max-width: 768px) {
-  .about-img {
-    padding: 0 0 0 120px!important;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-img {
-    padding: 0 0 0 120px!important;
-  }
-}
-
 /* @media (max-width: 768px) {
-  .about-img-bottom {
-    padding: 0 0 0 60px!important;
+  .about-img {
+    padding: 0 0 0 100px!important;
   }
 }
 
 @media (max-width: 480px) {
-  .about-img-bottom {
-    padding: 0 0 0 40px!important;
+  .about-img {
+    padding: 0 0 0 100px!important;
   }
 } */
+
+@media (max-width: 768px) {
+  .about-img-bottom {
+    padding: 0 20px 0 0!important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-img-bottom {
+    padding: 0 20px 0 0!important;
+  }
+}
 
 @media (max-width: 480px) {
   .nav-pills.transparent .nav-link {
@@ -2102,13 +2097,19 @@ ul.pagination .active a {
   }
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
+  .card-team {
+    width:auto;
+    padding: 0 40px 0 40px;
+  }
+} */
+
+@media (max-width: 575px) {
   .card-team {
     width:auto;
     padding: 0 100px 0 100px !important;
   }
 }
-
 .widget.search .input-group .form-control {
   border: none;
 }
