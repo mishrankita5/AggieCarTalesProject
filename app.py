@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 app.secret_key = "randomstring123"
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev':
     app.debug = True

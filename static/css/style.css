@@ -155,15 +155,27 @@ label {
 
 @media (max-width: 768px) {
   .about-img {
-    padding: 0 0 0 80px!important;
+    padding: 0 0 0 120px!important;
   }
 }
 
-@media (max-width: 768px) {
-  .about-img-bottom {
-    padding: 0 0 0 30px!important;
+@media (max-width: 480px) {
+  .about-img {
+    padding: 0 0 0 120px!important;
   }
 }
+
+/* @media (max-width: 768px) {
+  .about-img-bottom {
+    padding: 0 0 0 60px!important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-img-bottom {
+    padding: 0 0 0 40px!important;
+  }
+} */
 
 @media (max-width: 480px) {
   .nav-pills.transparent .nav-link {
