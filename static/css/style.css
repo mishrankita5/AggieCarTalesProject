@@ -1024,6 +1024,18 @@ ul.pagination .active a {
 }
 
 @media (max-width: 480px) {
+  .hero-area .content-block {
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-area .content-block {
+    padding-bottom: 70px;
+  }
+}
+
+@media (max-width: 480px) {
   .hero-area .advance-search .block {
     display: block !important;
   }
