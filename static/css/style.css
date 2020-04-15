@@ -2891,4 +2891,17 @@ form textarea {
   text-decoration: none;
 }
 
+.table_fetch {
+  margin-left: 8%;
+  margin-bottom: 2%;
+  margin-right: 8%;
+}
+
+.table_fetch .h1 {
+  margin: 0 0 20px 0;
+  font-weight: 400;
+  font-size: 36px;
+  color: black;
+}
+
 /*# sourceMappingURL=maps/style.css.map */

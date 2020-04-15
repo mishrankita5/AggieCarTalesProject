@@ -62,7 +62,18 @@ class Review(db.Model):
         self.carImage = carImage
         self.reviewDate=reviewDate
 
+class Feedback(db.Model):
+    __tablename__ = 'Feedback'
+    feedback_id = db.Column(db.Integer,primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    feedback = db.Column(db.VARCHAR(length=2000))
+    feedbackDate = db.Column(db.Date)
+   
 
+    def __init__(self, user_id, feedback,feedbackDate):
+        self.user_id = user_id
+        self.feedback = feedback
+        self.feedbackDate=feedbackDate
 
 
 @app.route('/')
@@ -201,6 +212,24 @@ def addreview():
         db.session.add(data)
         db.session.commit()
         return render_template ('addReview_success.html')
+
+@app.route('/addfeedback', methods = ['POST'])
+def addfeedback():
+    now = datetime.today()
+    print (now)
+    if request.method == 'POST':
+        user_id = session['user_id']
+        feedback = request.form['feedback']
+        feedbackDate = datetime.strftime(now, "%Y-%m-%d")
+
+        if feedback == '':
+            return render_template('index.html', message='Please enter feedback')
+        
+        
+        data = Feedback(user_id, feedback,feedbackDate)  
+        db.session.add(data)
+        db.session.commit()
+        return render_template ('index.html', message='Thank you for your feedback!')
      
 
 @app.route('/search', methods =['POST'])
@@ -259,6 +288,20 @@ def deleteUser():
     return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)
 
 
+@app.route('/deleteFeedback',methods =['POST'])
+def deleteFeedback():
+    if request.method == 'POST':
+        feedbackId = request.form['deleteFeedback']
+        record_obj = db.session.query(Feedback).filter(Feedback.feedback_id==feedbackId).first()
+        db.session.delete(record_obj)
+        db.session.commit() 
+        session['database'] ='second'
+        userRecords = db.session.query(User).all()
+        reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
+        feedbackRecords = db.session.query(Feedback).all()  
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords)
+
+
 @app.route('/readMore', methods =['POST'])
 def readMore():
     if request.method == 'POST':
@@ -298,7 +341,8 @@ def showDatabase():
         session['database'] ='second'
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
-    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)
+        feedbackRecords = db.session.query(Feedback).all()
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords, feedbackRecords=feedbackRecords)
 
 
 

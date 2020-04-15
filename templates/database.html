@@ -41,7 +41,7 @@
         padding: 8px 8px; 
         border: 1px solid black; 
     } 
-</style> 
+  </style> 
   <body class="body-wrapper">
     <section>
       <div class="container">
@@ -75,7 +75,7 @@
                   </li>
                   {% if session['username'] == 'Admin'%}
                   <li class="nav-item active">
-                    <a class="nav-link" href="database.html">Database</a>
+                    <a class="nav-link" href="database.html">Databases</a>
                   </li>
                   {% endif %}
                 </ul>
@@ -104,100 +104,138 @@
     <!--================================
 =            Page Title            =
 =================================-->
-    <section class="section">
-      <div class="database_container">
-       
-          <div>
-            <form action="/showDatabase" method="POST">
-              <fieldset class="p-4">
-                <button style="margin-left: 20px;"
+<div class="database_container">
+        <div>
+          <form action="/showDatabase" method="POST">
+            <fieldset class="p-4">
+              <button style="margin-left: 20px;"
                   type="submit"
                   value="/showDatabase"
                   class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"
                 >
-                  Show Database
-                </button>
-              </fieldset>
-            </form>
-          </div>
-          {%if session['database'] == 'second'%}
-        <div>
-            <h1 style="padding-left: 40px;"><font color="white">Hi</font><br>Review Table</h1>
-            <table border="1" align="left" cellpadding="5px" style="margin-left: 40px;margin-right: 40px;">
-                    <tr style="color: green; text-align: center;" >     
-                        <th>Review Id</th> 
-                        <th>User Id</th> 
-                        <th>Car Name</th> 
-                        <th>Car Model</th> 
-                        <th>Car Category</th> 
-                        <th>Review</th> 
-                        <th>Year of Manufacture</th> 
-                        <th>Car Image</th> 
-                    </tr> 
-            {% for item in reviewRecords %}
-            <tr>
-                <td>{{item.review_id}}</td>
-                <td>{{item.user_id}}</td>
-                <td>{{item.carName}}</td>
-                <td>{{item.carModel}}</td>
-                <td>{{item.carCategory}}</td>
-                <td>{{item.review}}</td>
-                <td>{{item.yearOfManufacturing}}</td>
-                <td>{{item.carImage}}</td>
-            </tr>
-            {% endfor %}
+                  Show Databases
+              </button>
+            </fieldset>
+          </form>
+        </div>
+        {%if session['database'] == 'second'%}
+        <!-- Review Table Settings-->
+        <div class="table_fetch">
+            <h1>Review Table</h1>
+            <table border="1" align="left" cellpadding="5px">
+              <tbody>
+                <tr style="color: green; text-align: center;" >     
+                  <th>Review Id</th> 
+                  <th>User Id</th> 
+                  <th>Car Name</th> 
+                  <th>Car Model</th> 
+                  <th>Car Category</th> 
+                  <th>Review</th> 
+                  <th>Year of Manufacture</th> 
+                  <th>Review Date</th> 
+                </tr> 
+                {% for item in reviewRecords %}
+                <tr>
+                    <td>{{item.review_id}}</td>
+                    <td>{{item.user_id}}</td>
+                    <td>{{item.carName}}</td>
+                    <td>{{item.carModel}}</td>
+                    <td>{{item.carCategory}}</td>
+                    <td>{{item.review}}</td>
+                    <td>{{item.yearOfManufacturing}}</td>
+                    <td>{{item.reviewDate}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
             </table>
+            <div>
+              <form autocomplete="on" action="/deleteReview" method = "POST">
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <input type="text" name="deleteReview" class="form-control my-2 my-lg-1 "  placeholder="Review Id">
+                  </div>
+                  <div class="form-group col-md-2 align-self-center">
+                    <button type="submit" value ="deleteReview" class="btn bg-primary text-white">Delete</button>
+                  </div>
+                </div>
+              </form>
+            </div>
         </div>
-        <h1 style="padding-left: 40px;"><font color="white">Hi</font><font color="white">Hi</font></h1>
-        <form autocomplete="on" action="/deleteReview" method = "POST">
-        <div class="form-row">
-          
-            <input style="margin-left: 40px;" type="text" name="deleteReview" class="form-control my-2 col-md-2 " placeholder="Type Review Id">
-         
-          
-            <button type="submit" style="margin-left: 20px;" value ="deleteReview" class="btn bg-primary text-white border-0 rounded font-weight-bold py-2">Delete Review</button>
-          
-        </div>
-      </form>
-        <div>
-            <h1 style="padding-left: 40px;"><font color="white">Hi</font><br><br>User Table</h1>
-            <table border="1" align="left" cellpadding="5px" style="margin-left: 40px;margin-right: 40px;">
-              <tr style="color: green;text-align: center; " >     
+        <!-- User Table Settings-->
+        <div class="table_fetch">
+            <h1>User Table</h1>
+            <table border="1" align="left" cellpadding="5px" style="margin-right: 500px;">
+              <tbody>
+                <tr style="color: green;text-align: center; " >     
                   <th>User Id</th> 
                   <th>First Name</th> 
                   <th>Last Name </th> 
                   <th>Email</th> 
                   <th>Password</th> 
                   <th>Year of Graduation</th> 
+                </tr> 
+                {% for item in userRecords %}
+                <tr>
+                  <td>{{item.user_id}}</td>
+                  <td>{{item.firstName}}</td>
+                  <td>{{item.lastName}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.password}}</td>
+                  <td>{{item.yearOfGraduation}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div>
+              <form autocomplete="on" action="/deleteUser" method = "POST">
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <input type="text" name="deleteUser" class="form-control my-2 my-lg-1 "  placeholder="User Id">
+                  </div>
+                  <div class="form-group col-md-2 align-self-center">
+                    <button type="submit" value ="deleteUser" class="btn bg-primary text-white">Delete</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <!-- Feedback Table Settings-->
+        <div class="table_fetch">
+          <h1>Feedback Table</h1>
+          <table border="1" align="left" cellpadding="5px" style="margin-right: 900px;">
+            <tbody>
+              <tr style="color: green;text-align: center; " >     
+                <th>Feedback Id</th> 
+                <th>User Id</th> 
+                <th>Feedback</th> 
+                <th>Feedback Date </th> 
               </tr> 
-          {% for item in userRecords %}
-          <tr>
-              <td>{{item.user_id}}</td>
-              <td>{{item.firstName}}</td>
-              <td>{{item.lastName}}</td>
-              <td>{{item.email}}</td>
-              <td>{{item.password}}</td>
-              <td>{{item.yearOfGraduation}}</td>
-          </tr>
-          {% endfor %}
+              {% for item in feedbackRecords %}
+              <tr>
+                <td>{{item.feedback_id}}</td>
+                <td>{{item.user_id}}</td>
+                <td>{{item.feedback}}</td>
+                <td>{{item.feedbackDate}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
-        </div>
-        
-        <h1 style="padding-left: 40px;"><font color="white">Hi</font><br><font color="white">Hi</font></h1>
-        <form autocomplete="on" action="/deleteUser" method = "POST">
-        <div class="form-row">
-          
-            <input style="margin-left: 40px;" type="text" name="deleteUser" class="form-control my-2 col-md-3 "  placeholder="Type User Id">
-         
-          
-            <button type="submit" style="margin-left: 20px;" value ="deleteUser" class="btn bg-primary text-white border-0 rounded font-weight-bold py-2">Delete User</button>
-          
-        </div>
-      </form>
-    
-        {% endif %}
+          <div>
+            <form autocomplete="on" action="/deleteFeedback" method = "POST">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <input type="text" name="deleteFeedback" class="form-control my-2 my-lg-1 "  placeholder="Feedback Id">
+                </div>
+                <div class="form-group col-md-2 align-self-center">
+                  <button type="submit" value ="deleteFeedback" class="btn bg-primary text-white">Delete</button>
+                </div>
+              </div>
+            </form>
+          </div>
       </div>
-    </section>
+        {% endif %}
+</div>
+
 
     <!-- JAVASCRIPTS -->
     <script src="../static/plugins/jQuery/jquery.min.js"></script>
