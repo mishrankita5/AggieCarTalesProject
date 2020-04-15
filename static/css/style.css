@@ -839,6 +839,8 @@ ul.pagination .active a {
   color: rgb(34, 90, 243);
 }
 
+
+
 .main-nav .search .nav-link i {
   font-size: 15px;
   height: 43px;
@@ -967,6 +969,12 @@ ul.pagination .active a {
     transform: none;
   }
 }
+
+
+
+
+
+
 
 @media (max-width: 480px) {
   .navbar-toggleable-md > .container {
