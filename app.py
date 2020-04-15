@@ -73,6 +73,10 @@ def index():
 def routeTrouble():
     return render_template('404.html')
 
+@app.route('/search_fail.html')
+def routeFail():
+    return render_template('search_fail.html')
+
 @app.route('/register.html')
 def routeRegister():
     return render_template('register.html')
@@ -127,6 +131,7 @@ def routeBlog():
 
 @app.route('/database.html')
 def routeDatabase():
+    session['database'] ='first'
     return render_template('database.html')
 
 @app.route('/register', methods = ['POST'])
@@ -204,6 +209,8 @@ def search():
         search = request.form['searchText']
         search = search.lower()
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
+        if len(records)==0:
+            return render_template('search_fail.html')
         reviewVar = ["" for x in range(len(records))]
         adminVar = ["" for x in range(len(records))]
         carNameVar = ["" for x in range(len(records))]
@@ -224,7 +231,32 @@ def search():
             i=i+1
             
         return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar,carImageVar=carImageVar, reviewDateVar=reviewDateVar) 
+
+
+@app.route('/deleteReview',methods =['POST'])
+def deleteReview():
+    if request.method == 'POST':
+        reviewId = request.form['deleteReview']
+        record_obj = db.session.query(Review).filter(Review.review_id==reviewId).first()
+        db.session.delete(record_obj)
+        db.session.commit() 
+        session['database'] ='second'
+        userRecords = db.session.query(User).all()
+        reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)
         
+
+@app.route('/deleteUser',methods =['POST'])
+def deleteUser():
+    if request.method == 'POST':
+        userId = request.form['deleteUser']
+        record_obj = db.session.query(User).filter(User.user_id==userId).first()
+        db.session.delete(record_obj)
+        db.session.commit() 
+        session['database'] ='second'
+        userRecords = db.session.query(User).all()
+        reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)
 
 
 @app.route('/readMore', methods =['POST'])
@@ -263,6 +295,7 @@ def readMore():
 @app.route('/showDatabase', methods=['POST'])
 def showDatabase():
     if request.method == 'POST':
+        session['database'] ='second'
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
     return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords)

@@ -25,7 +25,23 @@
     <!-- CUSTOM CSS -->
     <link href="../static/css/style.css" rel="stylesheet" />
   </head>
-
+  <style type="text/css"> 
+      
+    th:tr{ 
+        color: blue; 
+  
+    } 
+    tr:nth-of-type(2n){ 
+        border: 1px solid black; 
+        background-color: rgba(150, 150, 150, 0.5); 
+  
+    } 
+  
+    td{ 
+        padding: 8px 8px; 
+        border: 1px solid black; 
+    } 
+</style> 
   <body class="body-wrapper">
     <section>
       <div class="container">
@@ -51,12 +67,17 @@
                   <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                   </li>
-                  <li class="nav-item active">
+                  <li class="nav-item">
                     <a class="nav-link" href="about-us.html">About Us</a>
                   </li>
                   <li class="nav-item ">
                     <a class="nav-link" href="blog.html">Reviews</a>
                   </li>
+                  {% if session['username'] == 'Admin'%}
+                  <li class="nav-item active">
+                    <a class="nav-link" href="database.html">Database</a>
+                  </li>
+                  {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
                     {%if 'username' in session %}
@@ -85,10 +106,11 @@
 =================================-->
     <section class="section">
       <div class="database_container">
+       
           <div>
             <form action="/showDatabase" method="POST">
               <fieldset class="p-4">
-                <button
+                <button style="margin-left: 20px;"
                   type="submit"
                   value="/showDatabase"
                   class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"
@@ -98,10 +120,11 @@
               </fieldset>
             </form>
           </div>
+          {%if session['database'] == 'second'%}
         <div>
-            <h1>Review Table</h1>
-            <table border="1" align="center" cellpadding="5px">
-                    <tr style="color: green; " >     
+            <h1 style="padding-left: 40px;"><font color="white">Hi</font><br>Review Table</h1>
+            <table border="1" align="left" cellpadding="5px" style="margin-left: 40px;margin-right: 40px;">
+                    <tr style="color: green; text-align: center;" >     
                         <th>Review Id</th> 
                         <th>User Id</th> 
                         <th>Car Name</th> 
@@ -125,10 +148,21 @@
             {% endfor %}
             </table>
         </div>
+        <h1 style="padding-left: 40px;"><font color="white">Hi</font><font color="white">Hi</font></h1>
+        <form autocomplete="on" action="/deleteReview" method = "POST">
+        <div class="form-row">
+          
+            <input style="margin-left: 40px;" type="text" name="deleteReview" class="form-control my-2 col-md-2 " placeholder="Type Review Id">
+         
+          
+            <button type="submit" style="margin-left: 20px;" value ="deleteReview" class="btn bg-primary text-white border-0 rounded font-weight-bold py-2">Delete Review</button>
+          
+        </div>
+      </form>
         <div>
-            <h1>User Table</h1>
-            <table border="1" align="center" cellpadding="5px">
-              <tr style="color: green; " >     
+            <h1 style="padding-left: 40px;"><font color="white">Hi</font><br><br>User Table</h1>
+            <table border="1" align="left" cellpadding="5px" style="margin-left: 40px;margin-right: 40px;">
+              <tr style="color: green;text-align: center; " >     
                   <th>User Id</th> 
                   <th>First Name</th> 
                   <th>Last Name </th> 
@@ -148,6 +182,20 @@
           {% endfor %}
           </table>
         </div>
+        
+        <h1 style="padding-left: 40px;"><font color="white">Hi</font><br><font color="white">Hi</font></h1>
+        <form autocomplete="on" action="/deleteUser" method = "POST">
+        <div class="form-row">
+          
+            <input style="margin-left: 40px;" type="text" name="deleteUser" class="form-control my-2 col-md-3 "  placeholder="Type User Id">
+         
+          
+            <button type="submit" style="margin-left: 20px;" value ="deleteUser" class="btn bg-primary text-white border-0 rounded font-weight-bold py-2">Delete User</button>
+          
+        </div>
+      </form>
+    
+        {% endif %}
       </div>
     </section>
 
