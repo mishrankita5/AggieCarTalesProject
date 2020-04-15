@@ -93,6 +93,12 @@ label {
   }
 }
 
+@media (max-width: 768px) {
+  .databaseImage {
+    display: none;
+  }
+}
+
 .nav-pills.with-background .nav-item {
   margin-right: 10px;
 }

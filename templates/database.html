@@ -108,7 +108,10 @@
         <div>
           <form action="/showDatabase" method="POST">
             <fieldset class="p-4">
-              <button style="margin-left: 20px;"
+              <div id="page_not_found">
+                <img style="margin-left: 90px;" src="../static/images/search_revvie.png" class="img-fluid w-25" alt="revvie"  />
+              </div>
+              <button style="margin-left: 100px;"
                   type="submit"
                   value="/showDatabase"
                   class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"
@@ -164,7 +167,7 @@
         <!-- User Table Settings-->
         <div class="table_fetch">
             <h1>User Table</h1>
-            <table border="1" align="left" cellpadding="5px" style="margin-right: 500px;">
+            <table border="1" align="left" cellpadding="5px" >
               <tbody>
                 <tr style="color: green;text-align: center; " >     
                   <th>User Id</th> 
@@ -186,6 +189,9 @@
                 {% endfor %}
               </tbody>
             </table>
+            <div id="page_not_found">
+              <img  src="../static/images/database.png" class="img-fluid w-15 databaseImage" alt="revvie"  />
+            </div>
             <div>
               <form autocomplete="on" action="/deleteUser" method = "POST">
                 <div class="form-row">

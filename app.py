@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from base64 import b64encode
 from datetime import datetime
+import re
 
 app = Flask(__name__)
 
 app.secret_key = "randomstring123"
+
 
 ENV = 'dev'
 
@@ -157,12 +159,19 @@ def register():
         if firstName == '' or lastName == '' or email == '' or password == '' or yearOfGraduation == '':
             return render_template('register.html', message='Please enter all required fields')
         
-        if db.session.query(User).filter(User.email == email).count() == 0:
-            data = User(firstName, lastName, email, password, yearOfGraduation)  
-            db.session.add(data)
-            db.session.commit()
-            return render_template ('register_success.html')
-        return render_template('register.html', message='User already exists. Kindly login.')
+        regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+        if not re.match(regex,email) :  
+            return render_template('login.html', message='Please enter all required fields')
+        else:
+            if db.session.query(User).filter(User.email == email).count() == 0:
+                data = User(firstName, lastName, email, password, yearOfGraduation)  
+                db.session.add(data)
+                db.session.commit()
+                return render_template ('register_success.html')
+            return render_template('register.html', message='User already exists. Kindly login.') 
+
+
+        
 
 
 
@@ -174,18 +183,23 @@ def login():
         if email == '' or password == '':
             return render_template('login.html', message='Please enter all required fields')
         form = request.form
-        records = db.session.query(User).filter(User.email == email).all()
-        for record in records:
-            if record:
-                db_password =  record.password
-                if(password == db_password): # if password correct
-                    session['username'] = record.firstName
-                    session['user_id'] = record.user_id
-                    return redirect('index.html')
-                 # and if password is not correct
-                return render_template ('login.html', message='Invalid Password. Please try again')
-               # flash("Incorrect password, please try again or register") 
-        return render_template ('register.html', message='User does not exist. Please sign up')
+        
+        regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+        if not re.match(regex,email) :  
+            return render_template('login.html',message='Please enter valid email')
+        else:
+            records = db.session.query(User).filter(User.email == email).all()
+            for record in records:
+                if record:
+                    db_password =  record.password
+                    if(password == db_password): # if password correct
+                        session['username'] = record.firstName
+                        session['user_id'] = record.user_id
+                        return redirect('index.html')
+                    # and if password is not correct
+                    return render_template ('login.html', message='Invalid Password. Please try again')
+                # flash("Incorrect password, please try again or register") 
+            return render_template ('register.html', message='User does not exist. Please sign up')
     return render_template('index.html')
         
 
@@ -218,24 +232,28 @@ def addfeedback():
     now = datetime.today()
     print (now)
     if request.method == 'POST':
-        user_id = session['user_id']
-        feedback = request.form['feedback']
-        feedbackDate = datetime.strftime(now, "%Y-%m-%d")
-
-        if feedback == '':
-            return render_template('index.html', message='Please enter feedback')
-        
-        
-        data = Feedback(user_id, feedback,feedbackDate)  
-        db.session.add(data)
-        db.session.commit()
-        return render_template ('index.html', message='Thank you for your feedback!')
-     
+        if session.get('user_id') == True:
+            user_id = session['user_id']
+            feedback = request.form['feedback']
+            feedbackDate = datetime.strftime(now, "%Y-%m-%d")
+            if feedback == '':
+                return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
+            data = Feedback(user_id, feedback,feedbackDate)  
+            print(user_id)
+            print(data)
+            db.session.add(data)
+            db.session.commit()
+            return render_template ('index.html', message='Thank you for your feedback!')
+        return render_template ('index.html', message='Please login to enter feedback!')
+    return render_template('index.html', message='3')
+    
 
 @app.route('/search', methods =['POST'])
 def search():
     if request.method == 'POST':
         search = request.form['searchText']
+        if search=="":
+            return render_template('index.html', messageSearch='Please enter car name to start searching')
         search = search.lower()
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
         if len(records)==0:

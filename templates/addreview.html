@@ -128,14 +128,21 @@
                   <option value="SUV">SUV</option>
                   <option value="Sports">Sports</option>
                 </select>
+                {% if messagePhoto %}
+                <p class="message">&nbsp;&nbsp;{{ messagePhoto | safe}}</p>
+                {% endif %}
                 <h6 class="font-weight-bold pt-4 pb-1">Select Photo/Video To Attach:</h6>
                 <div class="choose-file text-center my-2 py-4 rounded">
                   <label for="file-upload">
-                    <span class="d-block font-weight-bold text-dark">Drop files anywhere to upload</span>
+                    <!-- <span class="d-block font-weight-bold text-dark">Drop files anywhere to upload</span>
                     <span class="d-block">or</span>
-                    <span class="d-block btn btn-transparent text-black-50 my-3 select-files">Select files</span>
-                    <span class="d-block">Maximum upload file size: 500 KB</span>
-                    <input name="fileimg" type="file" class="form-control-file d-none" id="file-upload"  />
+                    <span class="d-block btn btn-transparent text-black-50 my-3 select-files">Select files</span> -->
+                    <!-- <span class="d-block">Maximum upload file size: 500 KB</span> -->
+                    <!-- <input name="fileimg" type="file" class="form-control-file d-none" id="file-upload"  /> -->
+                      <!-- <label for="myfile">Select a file:</label> -->
+                      <!-- <input type="file" id="file-upload" name="fileimg" class="form-control-file d-none"> -->
+                      <input class="d-block btn btn-transparent text-black-50 my-3 select-files" type="file" id="myfile" name="myfile">
+                      <span class="d-block">Maximum upload file size: 500 KB</span>
                   </label>
                 </div>
               </div>

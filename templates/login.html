@@ -89,7 +89,7 @@
                 <p1>&nbsp;&nbsp;&nbsp;Please sign in to continue.</p1>
               </h3>
               {% if message %}
-              <p class="message" color="red">&nbsp;&nbsp;{{ message | safe}}</p>
+              <p class="message" color="red">&nbsp;&nbsp;<font color="red">{{ message | safe}}</font></p>
               {% endif %}
               <form action="/login" method="POST" >
                 <fieldset class="p-4">
