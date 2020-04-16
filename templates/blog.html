@@ -73,12 +73,14 @@
                 <ul class="navbar-nav ml-auto mt-10">
                   {%if 'username' in session %}
                   <h1 style="padding-bottom: 0.4rem;"><font color ="orange" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
-                  <li class="nav-item">
-                    <a class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
+                  <li class="nav-item buttonTop">
+                    <a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
                   </li>
-                  <form action="/logout">
-                    <button  class="nav-link login-button" type="submit">Logout</button>
-                  </form>
+                  <li class="nav-item buttonTop">
+                    <form action="/logout">
+                      <button  class="nav-link login-button" type="submit">Logout</button>
+                    </form>
+                  </li>
                   {% else %}
                   <li class="nav-item">
                     <a class="nav-link login-button" href="login.html">Login</a>

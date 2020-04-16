@@ -766,6 +766,11 @@ ul.pagination .active a {
 
 .navigation .navbar-nav {
   text-align: center;
+  padding-top: 30px;
+}
+
+.buttonTop {
+  padding-top: 7px !important;
 }
 
 .login-button {
