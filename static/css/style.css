@@ -771,7 +771,7 @@ ul.pagination .active a {
 .login-button {
   border: 2px solid #dedede;
   margin-right: 8px;
-  padding: 6px 20px !important;
+  padding: 8px 30px 6px 30px !important;
 }
 
 #revvie {
@@ -811,11 +811,27 @@ ul.pagination .active a {
   }
 }
 
+.tableHeading {
+  font-size: 30px;
+ }
+
+@media (max-width: 992px) {
+  .tableHeading {
+   font-size: 22px;
+  }
+}
+
+@media (max-width: 448px) {
+  .tableHeading {
+   font-size: 13px;
+  }
+}
+
 .add-button {
   background: #ffa500;
   color: #fff;
-  border-radius: 3px;
-  padding: 8px 20px !important;
+  border-radius: 2px;
+  padding:8px 20px 7px 20px !important;
   display: inline-block;
 }
 

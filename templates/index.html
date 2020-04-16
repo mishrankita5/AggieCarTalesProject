@@ -54,7 +54,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto main-nav ">
 							<li class="nav-item active">
-								<a class="nav-link" href="index.html">Home</a>
+								<a class="nav-link" href="index.html"> Home</a>
 							</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="about-us.html">About Us</a>
@@ -71,9 +71,9 @@
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
 							{%if 'username' in session %}
-							<p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp; </p>
+							<h1 style="padding-bottom: 0.4rem;padding-right:.8rem;padding-left:.8rem;"><font color ="orange" size="3">Hi, {{ session['username']}}</font> </h1>
 							<li class="nav-item">
-								<a class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
+								<a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
 							</li>
 							<form action="/logout">
 								<button  class="nav-link login-button" type="submit">Logout</button>

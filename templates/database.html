@@ -81,9 +81,9 @@
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
                     {%if 'username' in session %}
-                    <p>Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp; </p>
+                    <h1 style="padding-bottom: 0.4rem;"><font color ="orange" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
                     <li class="nav-item">
-                        <a class="nav-link text-white add-button" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
+                        <a class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
                     </li>
                     <form action="/logout">
                         <button  class="nav-link login-button" type="submit">Logout</button>
@@ -124,8 +124,11 @@
         {%if session['database'] == 'second'%}
         <!-- Review Table Settings-->
         <div class="table_fetch">
-            <h1>Review Table</h1>
-            <table border="1" align="left" cellpadding="5px">
+          
+            <h1 class="tableHeading">Review Table</h1>
+          
+            
+            <table border="1" align="left" cellpadding="5px" class="table-responsive-md">
               <tbody>
                 <tr style="color: green; text-align: center;" >     
                   <th>Review Id</th> 
@@ -166,8 +169,8 @@
         </div>
         <!-- User Table Settings-->
         <div class="table_fetch">
-            <h1>User Table</h1>
-            <table border="1" align="left" cellpadding="5px" >
+            <h1 class="tableHeading">User Table</h1>
+            <table border="1" align="left" cellpadding="5px" class="table-responsive-md" >
               <tbody>
                 <tr style="color: green;text-align: center; " >     
                   <th>User Id</th> 
@@ -190,8 +193,9 @@
               </tbody>
             </table>
             <div id="page_not_found">
-              <img  src="../static/images/database.png" class="img-fluid w-15 databaseImage" alt="revvie"  />
+              <img  style="padding-bottom: 28px;"src="../static/images/database.png" class="img-fluid w-10 databaseImage" alt="revvie"  />
             </div>
+
             <div>
               <form autocomplete="on" action="/deleteUser" method = "POST">
                 <div class="form-row">
@@ -207,8 +211,8 @@
         </div>
         <!-- Feedback Table Settings-->
         <div class="table_fetch">
-          <h1>Feedback Table</h1>
-          <table border="1" align="left" cellpadding="5px" style="margin-right: 900px;">
+          <h1 class="tableHeading">Feedback Table</h1>
+          <table border="1" align="left" cellpadding="5px" style="margin-right: 900px;" class="table-responsive-md" >
             <tbody>
               <tr style="color: green;text-align: center; " >     
                 <th>Feedback Id</th> 
