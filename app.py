@@ -206,7 +206,6 @@ def login():
 @app.route('/addreview', methods = ['POST'])
 def addreview():
     now = datetime.today()
-    print (now)
     if request.method == 'POST':
         user_id = session['user_id']
         review = request.form['review']
@@ -216,7 +215,6 @@ def addreview():
         yearOfManufacturing = request.form['yearOfManufacturing']
         carImage = request.files['fileimg'].read()
         reviewDate = datetime.strftime(now, "%Y-%m-%d")
-        print(reviewDate)
 
         if review == '' or carName == '' or carModel == '' or carCategory == '' or yearOfManufacturing == '':
             return render_template('addreview.html', message='Please enter all required fields')
@@ -230,22 +228,19 @@ def addreview():
 @app.route('/addfeedback', methods = ['POST'])
 def addfeedback():
     now = datetime.today()
-    print (now)
     if request.method == 'POST':
-        if session.get('user_id') == True:
+        # if session.get('user_id') == True:
             user_id = session['user_id']
             feedback = request.form['feedback']
             feedbackDate = datetime.strftime(now, "%Y-%m-%d")
             if feedback == '':
                 return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
             data = Feedback(user_id, feedback,feedbackDate)  
-            print(user_id)
-            print(data)
             db.session.add(data)
             db.session.commit()
             return render_template ('index.html', message='Thank you for your feedback!')
-        return render_template ('index.html', message='Please login to enter feedback!')
-    return render_template('index.html', message='3')
+        # return render_template ('index.html', message='Please login to enter feedback!')
+    return render_template('index.html')
     
 
 @app.route('/search', methods =['POST'])
