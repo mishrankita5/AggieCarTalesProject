@@ -242,7 +242,7 @@ def addfeedback():
                 data = Feedback(user_id, feedback,feedbackDate)  
                 db.session.add(data)
                 db.session.commit()
-                return render_template ('index.html', message='Thank you for your feedback!')
+                return render_template ('index.html', message='Thank you for your valuable feedback!')
         
     return render_template('index.html')
     
