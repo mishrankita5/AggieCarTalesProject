@@ -301,9 +301,9 @@ def deleteUser():
         db.session.delete(record_obj)
         db.session.commit() 
         session['database'] ='second'
-        userRecords = db.session.query(User).all()
-        feedbackRecords = db.session.query(Feedback).all()  
+        userRecords = db.session.query(User).all() 
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
+        feedbackRecords = db.session.query(Feedback).all() 
     return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords)
 
 
