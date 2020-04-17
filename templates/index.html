@@ -315,7 +315,7 @@
 
 
 <!--==========================================
-=            Popular Category Section            =
+=            Feedback Section            =
 ===========================================-->
 
 <section class=" section section bg-gray">
@@ -334,11 +334,10 @@
 
 					<div class="col-lg-8 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-9">
 						{% if message %}
-						<p align="left" class="message" color="red">{{ message | safe}}</p>
+						<p align="left" class="message">{{ message | safe}}</p>
 						{% endif %}
 						<form action="/addfeedback" method = "POST">
 						<p><font color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
-
 							<h6 class="font-weight-bold pt-4 pb-1">Feedback:</h6>
 							<textarea
 							  name="feedback"

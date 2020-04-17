@@ -228,10 +228,12 @@ def addreview():
 
 @app.route('/addfeedback', methods = ['POST'])
 def addfeedback():
-    now = datetime.today()
     if request.method == 'POST':
-        if session.get('logged_in'):
+        if not session.get('logged_in'):
+            return render_template ('index.html', message='Please login to enter feedback!')
+        else:
             if session['logged_in'] == True:
+                now = datetime.today()
                 user_id = session['user_id']
                 feedback = request.form['feedback']
                 feedbackDate = datetime.strftime(now, "%Y-%m-%d")
@@ -241,8 +243,7 @@ def addfeedback():
                 db.session.add(data)
                 db.session.commit()
                 return render_template ('index.html', message='Thank you for your feedback!')
-        else:
-            return render_template ('index.html', message='Please login to enter feedback!')
+        
     return render_template('index.html')
     
 
