@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "randomstring123"
 
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev':
     app.debug = True
@@ -297,6 +297,17 @@ def deleteReview():
 def deleteUser():
     if request.method == 'POST':
         userId = request.form['deleteUser']
+        #delete review posted by user
+        review_obj = db.session.query(Review).filter(Review.user_id==userId).all()
+        for record in review_obj:
+            db.session.delete(record)
+            db.session.commit() 
+        #delete feedback posted by user
+        feedback_obj = db.session.query(Feedback).filter(Feedback.user_id==userId).all()
+        for record in feedback_obj:
+            db.session.delete(record)
+            db.session.commit() 
+        #delete user
         record_obj = db.session.query(User).filter(User.user_id==userId).first()
         db.session.delete(record_obj)
         db.session.commit() 
