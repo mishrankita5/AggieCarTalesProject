@@ -241,8 +241,8 @@ def addfeedback():
                 db.session.add(data)
                 db.session.commit()
                 return render_template ('index.html', message='Thank you for your feedback!')
-            else:
-                return render_template ('index.html', message='Please login to enter feedback!')
+        else:
+            return render_template ('index.html', message='Please login to enter feedback!')
     return render_template('index.html')
     
 
