@@ -195,6 +195,7 @@ def login():
                     if(password == db_password): # if password correct
                         session['username'] = record.firstName
                         session['user_id'] = record.user_id
+                        session['logged_in'] = True
                         return redirect('index.html')
                     # and if password is not correct
                     return render_template ('login.html', message='Invalid Password. Please try again')
@@ -229,17 +230,18 @@ def addreview():
 def addfeedback():
     now = datetime.today()
     if request.method == 'POST':
-        # if session.get('user_id') == True:
-            user_id = session['user_id']
-            feedback = request.form['feedback']
-            feedbackDate = datetime.strftime(now, "%Y-%m-%d")
-            if feedback == '':
-                return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
-            data = Feedback(user_id, feedback,feedbackDate)  
-            db.session.add(data)
-            db.session.commit()
-            return render_template ('index.html', message='Thank you for your feedback!')
-        # return render_template ('index.html', message='Please login to enter feedback!')
+        if session.get('logged_in'):
+            if session['logged_in'] == True:
+                user_id = session['user_id']
+                feedback = request.form['feedback']
+                feedbackDate = datetime.strftime(now, "%Y-%m-%d")
+                if feedback == '':
+                    return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
+                data = Feedback(user_id, feedback,feedbackDate)  
+                db.session.add(data)
+                db.session.commit()
+                return render_template ('index.html', message='Thank you for your feedback!')
+        return render_template ('index.html', message='Please login to enter feedback!')
     return render_template('index.html')
     
 
