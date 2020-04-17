@@ -337,8 +337,9 @@
 						<p align="left" class="message">{{ message | safe}}</p>
 						{% endif %}
 						<form action="/addfeedback" method = "POST">
-						<p><font color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
-							<h6 class="font-weight-bold pt-4 pb-1">Feedback:</h6>
+						<p ><font color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
+							<h6 class="font-weight-bold pt-4 pb-1" style="padding-top: 0 !important;padding-bottom: 0 !important;">Feedback:</h6>
+							{%if 'username' in session %}
 							<textarea
 							  name="feedback"
 							  id=""
@@ -347,9 +348,26 @@
 							  placeholder="We would love to hear from you.."
 							></textarea>
 					</br></br>
-							<div class="form-group col-md-3 align-self-center">
+							<div class="form-group col-md-3 align-self-center" style="padding-left: 0 !important;">
 							<button type="submit" value ="addfeedback" class="btn bg-primary text-white">Submit</button>
 							</div> 
+							{% else %}
+							<h6 class="font-weight-bold pt-4 pb-1" style="padding-top: 0!important;padding-bottom: 0 !important;"><font color="red">Please Login to enter feedback</font></h6>
+							<textarea disabled=True
+							name="feedback"
+							id=""
+							class="border p-3 w-75"
+							rows="3"
+							placeholder="We would love to hear from you.."
+						  ></textarea>
+				  </br></br>
+						  <div class="form-group col-md-3 align-self-center" style="padding-left: 0 !important;">
+						  <!-- <button type="submit" value ="addfeedback" class="btn bg-primary text-white">Submit Feedback</button> -->
+						  <a class="nav-link btn bg-primary text-white" href="login.html">Login</a>
+						  </div> 
+
+							{% endif %}
+							
 						</form>
 					</div>
 				
