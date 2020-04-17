@@ -158,10 +158,17 @@ def register():
 
         if firstName == '' or lastName == '' or email == '' or password == '' or yearOfGraduation == '':
             return render_template('register.html', message='Please enter all required fields')
+
+            #todo-- check if year of gradutaion and year of manufacture for car is valid year
         
+        # if not (yearOfGraduation.isDigit()):
+        #     return render_template('register.html', message='Please enter valid graduation year')
+        # if not (func.len(yearOfGraduation)==4):
+        #     return render_template('register.html', message='Please enter valid graduation year')
+
         regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
         if not re.match(regex,email) :  
-            return render_template('login.html', message='Please enter all required fields')
+            return render_template('register.html', message='Please enter valid email')
         else:
             if db.session.query(User).filter(User.email == email).count() == 0:
                 data = User(firstName, lastName, email, password, yearOfGraduation)  
