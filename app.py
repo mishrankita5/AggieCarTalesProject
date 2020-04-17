@@ -229,22 +229,21 @@ def addreview():
 @app.route('/addfeedback', methods = ['POST'])
 def addfeedback():
     if request.method == 'POST':
-        if not session.get('logged_in'):
-            return render_template ('index.html', message='Please login to enter feedback!')
-        else:
-            if session['logged_in'] == True:
-                now = datetime.today()
-                user_id = session['user_id']
-                feedback = request.form['feedback']
-                feedbackDate = datetime.strftime(now, "%Y-%m-%d")
-                if feedback == '':
-                    return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
-                data = Feedback(user_id, feedback,feedbackDate)  
-                db.session.add(data)
-                db.session.commit()
-                return render_template ('index.html', message='Thank you for your valuable feedback!')
-        
-    return render_template('index.html')
+        # if not session.get('logged_in'):
+        #     return render_template ('index.html', message='Please login to enter feedback!')
+        # else:
+        #     if session['logged_in'] == True:
+        #         now = datetime.today()
+        #         user_id = session['user_id']
+        #         feedback = request.form['feedback']
+        #         feedbackDate = datetime.strftime(now, "%Y-%m-%d")
+        #         if feedback == '':
+        #             return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
+        #         data = Feedback(user_id, feedback,feedbackDate)  
+        #         db.session.add(data)
+        #         db.session.commit()
+        #         return render_template ('index.html', message='Thank you for your valuable feedback!')  
+        return render_template('index.html')
     
 
 @app.route('/search', methods =['POST'])
