@@ -1358,6 +1358,21 @@ ul.pagination .active a {
   background: #f7f7f7;
 }
 
+
+@media (max-width: 480px) {
+  .list-inline-item-blog {
+    width: 100px !important;
+    display:table-footer-group !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-inline-item-blog {
+    width: 100px !important;
+    display:table-footer-group !important;
+  }
+}
+
 .dashboard-container .action .view {
   background: #f7f7f7;
 }
