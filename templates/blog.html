@@ -72,7 +72,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
                   {%if 'username' in session %}
-                  <h1 style="padding-bottom: 0.4rem;"><font color ="orange" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
+                  <h1 style="padding-bottom: 0.4rem;"><font color ="green" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
                   <li class="nav-item buttonTop">
                     <a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
                   </li>
@@ -131,27 +131,21 @@
                 <img src="data:;base64,{{ carImageVar[i] }}" alt="article-01" />
               </div>
               <!-- Post Title -->
-              <!-- <h3>Donec id dolor in erat imperdiet.</h3> -->
-              <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="black">Car Name:</font></b> <font color="black">{{carNameVar[i]}}</font> </li>
-                <li class="list-inline-item"><b><font color="black">Car Model: </font></b> <font color="black">{{carModelVar[i]}}</font></li>
+              <ul class="list-inline col-12" style="padding-inline-start: 0px; padding-left: 0px; padding-right: 0px;">
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Car:</font></b> <font color="black">{{carNameVar[i]}}</font></li>
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Model: </font></b> <font color="black">{{carModelVar[i]}}</font></li>
+                <li class="list-inline-item col-5" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Date Posted:</font></b> <font color="black">{{reviewDateVar[i]}}</font> </li>
               </ul>
-              <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="black">Review by:</font> </b> <font color="black">{{adminVar[i]}}</font></li>
-                <li class="list-inline-item" > <b><font color="black">Date Posted: </font></b> <font color="black">{{reviewDateVar[i]}}</font></li>
-                <!-- <li class="list-inline-item" name="reviewId"> <b><font color="grey">Review Id: </font></b> {{reviewIdVar[i]}}</li> -->
-                
-              </ul>
+
               <!-- Post Description -->
-              <p align="justify" class="" name="review" id="review">
-                <font color="black"> {{reviewVar[i]}}</font>
-               
-                
+              <label class="list-inline-item"> <b><font color="black">Review:</font></b></label>
+              <p align="justify" class="para-blog" name="review" id="review">
+                <font color="black"> {{reviewVar[i]}}</font>  
               </p>
 
               <form action="/readMore" method = "POST">
                 <input type="hidden" name="tag" value= {{reviewIdVar[i]}}  >
-								<button value ="readMore" class="btn btn-transparent" type="submit">Read More</button>
+								<button value ="readMore" class="btn btn-transparent" type="submit">Read Full Review</button>
 							</form>
                 
             </article>
@@ -189,13 +183,13 @@
             <!-- Social Icons -->
             <ul class="social-media-icons text-right">
               <li>
-                <a class="fa fa-facebook" href="https://www.facebook.com/themefisher" target="_blank"></a>
+                <a class="fa fa-facebook" href="https://www.facebook.com" target="_blank"></a>
               </li>
               <li>
-                <a class="fa fa-twitter" href="https://www.twitter.com/themefisher" target="_blank"></a>
+                <a class="fa fa-twitter" href="https://www.twitter.com" target="_blank"></a>
               </li>
               <li>
-                <a class="fa fa-pinterest-p" href="https://www.pinterest.com/themefisher" target="_blank"></a>
+                <a class="fa fa-pinterest-p" href="https://www.pinterest.com" target="_blank"></a>
               </li>
               <li><a class="fa fa-vimeo" href=""></a></li>
             </ul>

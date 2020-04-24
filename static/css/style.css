@@ -600,6 +600,7 @@ button {
   border-radius: 2px;
   border: none;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  height: 450px;
 }
 
 .mb-30 {
@@ -845,7 +846,7 @@ ul.pagination .active a {
 }
 
 .main-nav .nav-item .nav-link {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 43px;
   padding: 0 20px;
 }
@@ -1639,6 +1640,7 @@ ul.pagination .active a {
 
 .product-item .card {
   border: none;
+  height: 450px;
 }
 
 .product-item .card .card-body {
@@ -2739,10 +2741,26 @@ article.single-post p {
 .package-content:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+.para-blog{
+ 
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.card-para-blog{
+ 
+  /* width: 250px; */
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-wrap: wrap;
+}
 .about-content p {
   line-height: 30px;
-  font-size: medium;
+  font-size: large;
   color: #000000;
 }
 

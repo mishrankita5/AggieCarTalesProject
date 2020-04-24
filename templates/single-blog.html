@@ -72,7 +72,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto mt-10">
                   {%if 'username' in session %}
-                  <h1 style="padding-bottom: 0.4rem;"><font color ="orange" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
+                  <h1 style="padding-bottom: 0.4rem;"><font color ="green" size="3">Hi, {{ session['username']}} &nbsp;&nbsp;&nbsp;</font> </h1>
                   <li class="nav-item buttonTop">
                     <a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
                   </li>
@@ -106,30 +106,27 @@
               <h3>Review for {{carNameVar}} {{carModelVar}} </h3>
           
               <img src="data:;base64,{{ carImageVar }}"  alt="article-01" />
-              <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="black">Car Name:</font></b> <font color="black">{{carNameVar}}</font> </li>
-                <li class="list-inline-item"><b><font color="black">Car Model: </font></b> <font color="black">{{carModelVar}}</font></li>
+              <ul class="list-inline col-12" style="padding-inline-start: 0px; padding-left: 0px; padding-right: 0px;">
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Car:</font></b> <font color="black">{{carNameVar}}</font></li>
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Model: </font></b> <font color="black">{{carModelVar}}</font></li>
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Class:</font></b> <font color="black">{{carCategoryVar}}</font> </li>
+                <li class="list-inline-item col-2" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Year: </font></b> <font color="black">{{carYearOfManufacturingVar}}</font></li>
               </ul>
-              <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="black">Car Category:</font></b> <font color="black">{{carCategoryVar}}</font> </li>
-                <li class="list-inline-item"><b><font color="black">Car Manufacture Year: </font></b> <font color="black">{{carYearOfManufacturingVar}}</font></li>
-              </ul>
-              <ul class="list-inline">
-                <li class="list-inline-item"><b><font color="black">Review by: </font></b><font color="black">{{adminVar}}</font></li>
-                <li class="list-inline-item"><b><font color="black">Date Posted: </font></b><font color="black">{{reviewDateVar}}</font></li>
-              </ul>
-              <p align="justify"><font color="black">{{reviewVar}}</font>
-                
+              <label class="list-inline-item"> <b><font color="black">Review:</font></b></label>
+              <p align="justify"><font color="black">{{reviewVar}}</font> 
               </p>
-
+              <ul >
+                <li class="list-inline-item col-3" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Reviewer:</font></b> <font color="black">{{adminVar}}</font></li>
+                <li class="list-inline-item col-5" style="padding-left: 0px; padding-right: 0px; margin-right: 0px !important;"><b><font color="black">Posted On: </font></b> <font color="black">{{reviewDateVar}}</font></li>
+              </ul>
               <ul class="social-circle-icons list-inline">
-                <li class="list-inline-item text-center"><a class="fa fa-facebook" href=""></a></li>
-                <li class="list-inline-item text-center"><a class="fa fa-twitter" href=""></a></li>
-                <li class="list-inline-item text-center"><a class="fa fa-google-plus" href=""></a></li>
-                <li class="list-inline-item text-center"><a class="fa fa-linkedin" href=""></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-facebook" href="https://www.facebook.com"></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-twitter" href="https://www.twitter.com"></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-google-plus" href="https://www.google.com"></a></li>
+                <li class="list-inline-item text-center"><a class="fa fa-linkedin" href="https://www.linkedin.com"></a></li>
               </ul>
             </article>
-           
+
           </div>
         </div>
       </div>
@@ -161,13 +158,13 @@
             <!-- Social Icons -->
             <ul class="social-media-icons text-right">
               <li>
-                <a class="fa fa-facebook" href="https://www.facebook.com/themefisher" target="_blank"></a>
+                <a class="fa fa-facebook" href="https://www.facebook.com" target="_blank"></a>
               </li>
               <li>
-                <a class="fa fa-twitter" href="https://www.twitter.com/themefisher" target="_blank"></a>
+                <a class="fa fa-twitter" href="https://www.twitter.com" target="_blank"></a>
               </li>
               <li>
-                <a class="fa fa-pinterest-p" href="https://www.pinterest.com/themefisher" target="_blank"></a>
+                <a class="fa fa-pinterest-p" href="https://www.pinterest.com" target="_blank"></a>
               </li>
               <li><a class="fa fa-vimeo" href=""></a></li>
             </ul>

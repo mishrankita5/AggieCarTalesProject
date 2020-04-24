@@ -71,18 +71,18 @@
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
 							{%if 'username' in session %}
-							<h1 style="padding-bottom: 0.4rem;padding-right:.8rem;padding-left:.8rem;"><font color ="orange" size="3">Hi, {{ session['username']}}</font> </h1>
+							<h1 style="padding-bottom: 0.4rem;padding-right:.8rem;padding-left:.8rem;"><font color ="green" size="3.8px">Hi, {{ session['username']}}</font> </h1>
 							<li class="nav-item buttonTop">
-								<a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i> Review</a>
+								<a style="padding-bottom: 4px;" class="nav-link text-white add-button btn bg-primary text-white" href="addreview.html"><i class="fa fa-plus-circle"></i><font size="3.5px">Review</font> </a>
 							</li>
 							<li class="nav-item buttonTop">
 								<form action="/logout">
-									<button  class="nav-link login-button" type="submit">Logout</button>
+									<button  class="nav-link login-button" type="submit"><font size="3.5px">Logout</font></button>
 								</form>
 							</li>
 							{% else %}
 							<li class="nav-item">
-								<a class="nav-link login-button" href="login.html">Login</a>
+								<a class="nav-link login-button" href="login.html"><font size="3.5px">Login</font></a>
 							</li>
 							{% endif %}
 						</ul>
@@ -146,12 +146,12 @@
 =            Trending section            =
 ============================================-->
 
-<section class="popular-deals section bg-northernSky">
+<section class="popular-deals section bg-gray">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2><font color="black" size="6" >Trending Cars</font></h2>
+					<h2>Trending Cars</h2>
 				</div>
 			</div>
 		</div>
@@ -159,151 +159,39 @@
 			<!-- offer 01 -->
 			<div class="col-lg-12">
 				<div class="trending-ads-slide">
+					{%for i in range(0, len)%} 
 					<div class="col-sm-12 col-lg-4">
 						<!-- product card -->
+
 <div class="product-item bg-light">
-	<div class="card">
+	<div class="card" style="height: 100ox !important;">
 		<div class="thumb-content">
 			<!-- <div class="price">$200</div> -->
-			<a href="single-blog.html">
-				<img class="card-img-top img-fluid" src="../static/images/products/products-5.jpg" alt="Card image cap">
-			</a>
+				<img class="card-img-top img-fluid" style="height: 250px !important;" src="data:;base64,{{ carImageVar[i] }}" alt="Card image cap">
 		</div>
 		<div class="card-body">
-		    <h4 class="card-title"><a href="single-blog.html">G Class SUV</a></h4>
+		    <h4 class="card-title"><font color="black">{{carNameVar[i]}}</font></h4>
 		    <ul class="list-inline product-meta">
 		    	<li class="list-inline-item">
-		    		<a href="single-blog.html"><i class="fa fa-folder-open-o"></i>SUV</a>
+		    	<i class="fa fa-folder-open-o"></i> <font color="black">{{carCategoryVar[i]}}</font>
 		    	</li>
 		    	<li class="list-inline-item">
-		    		<a href="#"><i class="fa fa-calendar"></i>26th December</a>
+		    		<i class="fa fa-calendar"></i> <font color="black">{{reviewDateVar[i]}}</font>
 		    	</li>
+			</ul>
+			<ul class="list-inline product-meta">
 		    </ul>
-		    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-		    <div class="product-ratings">
-		    	<ul class="list-inline">
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item"><i class="fa fa-star"></i></li>
-		    	</ul>
-		    </div>
+			<p class="card-text card-para-blog"><font color="black">{{reviewVar[i]}}</font></p>
+			<ul class="list-inline product-meta">
+		    	<li class="list-inline-item">
+		    	<i class="fa fa-user"></i><font color="black">&nbsp;{{adminVar[i]}}</font>
+		    	</li>
+			</ul>
 		</div>
 	</div>
 </div>
 					</div>
-					<div class="col-sm-12 col-lg-4">
-						<!-- product card -->
-<div class="product-item bg-light">
-	<div class="card">
-		<div class="thumb-content">
-			<!-- <div class="price">$200</div> -->
-			<a href="single-blog.html">
-				<img class="card-img-top img-fluid" src="../static/images/products/products-2.jpg" alt="Card image cap">
-			</a>
-		</div>
-		<div class="card-body">
-		    <h4 class="card-title"><a href="single-blog.html">AMG E 53</a></h4>
-		    <ul class="list-inline product-meta">
-		    	<li class="list-inline-item">
-		    		<a href="single-blog.html"><i class="fa fa-folder-open-o"></i>Sports</a>
-		    	</li>
-		    	<li class="list-inline-item">
-		    		<a href="#"><i class="fa fa-calendar"></i>15th March</a>
-		    	</li>
-		    </ul>
-		    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-		    <div class="product-ratings">
-		    	<ul class="list-inline">
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item"><i class="fa fa-star"></i></li>
-		    	</ul>
-		    </div>
-		</div>
-	</div>
-</div>
-
-
-
-					</div>
-					<div class="col-sm-12 col-lg-4">
-						<!-- product card -->
-<div class="product-item bg-light">
-	<div class="card">
-		<div class="thumb-content">
-			<!-- <div class="price">$200</div> -->
-			<a href="single-blog.html">
-				<img class="card-img-top img-fluid" src="../static/images/products/products-3.jpg" alt="Card image cap">
-			</a>
-		</div>
-		<div class="card-body">
-		    <h4 class="card-title"><a href="single-blog.html">AMG S Class</a></h4>
-		    <ul class="list-inline product-meta">
-		    	<li class="list-inline-item">
-		    		<a href="single-blog.html"><i class="fa fa-folder-open-o"></i>Sports</a>
-		    	</li>
-		    	<li class="list-inline-item">
-		    		<a href="#"><i class="fa fa-calendar"></i>26th December</a>
-		    	</li>
-		    </ul>
-		    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-		    <div class="product-ratings">
-		    	<ul class="list-inline">
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item"><i class="fa fa-star"></i></li>
-		    	</ul>
-		    </div>
-		</div>
-	</div>
-</div>
-
-
-
-					</div>
-					<div class="col-sm-12 col-lg-4">
-						<!-- product card -->
-<div class="product-item bg-light">
-	<div class="card">
-		<div class="thumb-content">
-			<!-- <div class="price">$200</div> -->
-			<a href="single-blog.html">
-				<img class="card-img-top img-fluid" src="../static/images/products/products-4.jpg" alt="Card image cap">
-			</a>
-		</div>
-		<div class="card-body">
-		    <h4 class="card-title"><a href="single-blog.html">Mercedes GLB</a></h4>
-		    <ul class="list-inline product-meta">
-		    	<li class="list-inline-item">
-		    		<a href="single-blog.html"><i class="fa fa-folder-open-o"></i>SUV</a>
-		    	</li>
-		    	<li class="list-inline-item">
-		    		<a href="#"><i class="fa fa-calendar"></i>6th Feb</a>
-		    	</li>
-		    </ul>
-		    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-		    <div class="product-ratings">
-		    	<ul class="list-inline">
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-		    		<li class="list-inline-item"><i class="fa fa-star"></i></li>
-		    	</ul>
-		    </div>
-		</div>
-	</div>
-</div>
-
-
-
-					</div>
+					{% endfor%}
 				</div>
 			</div>
 			
@@ -329,7 +217,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-3">
-						<img src="../static/images/contact_us_image.jpg" class="img-fluid w-100" alt="Feedback image Revvie" />
+						<img  src="../static/images/contact_us_image.jpg" class="img-fluid w-100" alt="Feedback image Revvie" />
 					</div>
 
 					<div class="col-lg-8 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-9">
@@ -337,8 +225,8 @@
 						<p align="left" class="message">{{ message | safe}}</p>
 						{% endif %}
 						<form action="/addfeedback" method = "POST">
-						<p align="justify"><font color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
-							<h6 class="font-weight-bold pt-4 pb-1" style="padding-top: 0 !important;padding-bottom: 0 !important;">Feedback:</h6>
+						<p align="justify"><font size = "4px"color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>
+							<h6 class="font-weight-bold pt-4 pb-1" style="padding-top: 0 !important;padding-bottom: 0 !important;"><font size="4px">Feedback:</font></h6>
 							{%if 'username' in session %}
 							<textarea
 							  name="feedback"
@@ -349,7 +237,7 @@
 							></textarea>
 					</br></br>
 							<div class="form-group col-md-3 align-self-center" style="padding-left: 0 !important;">
-							<button type="submit" value ="addfeedback" class="btn bg-primary text-white">Submit</button>
+							<button type="submit" value ="addfeedback" class="btn bg-primary text-white"><font size="3.5px">Submit</font></button>
 							</div> 
 							{% else %}
 							<h6 class="font-weight-bold pt-4 pb-1" style="padding-top: 0!important;padding-bottom: 0 !important;"><font color="red">Please Login to enter feedback</font></h6>
@@ -396,7 +284,7 @@
 					document.write(CurrentYear);
 				  </script>
 				  . All Rights Reserved, by
-				  <a class="text-primary" href="404.html" target="_blank">AggieCarTales</a>
+				  <a class="text-primary" href="about-us.html.html" target="_blank">AggieCarTales</a>
 				</p>
 			  </div>
 			</div>
@@ -404,13 +292,13 @@
 			  <!-- Social Icons -->
 			  <ul class="social-media-icons text-right">
 				<li>
-				  <a class="fa fa-facebook" href="https://www.facebook.com/themefisher" target="_blank"></a>
+				  <a class="fa fa-facebook" href="https://www.facebook.com" target="_blank"></a>
 				</li>
 				<li>
-				  <a class="fa fa-twitter" href="https://www.twitter.com/themefisher" target="_blank"></a>
+				  <a class="fa fa-twitter" href="https://www.twitter.com" target="_blank"></a>
 				</li>
 				<li>
-				  <a class="fa fa-pinterest-p" href="https://www.pinterest.com/themefisher" target="_blank"></a>
+				  <a class="fa fa-pinterest-p" href="https://www.pinterest.com" target="_blank"></a>
 				</li>
 				<li><a class="fa fa-vimeo" href=""></a></li>
 			  </ul>
