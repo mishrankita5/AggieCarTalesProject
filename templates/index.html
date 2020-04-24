@@ -115,7 +115,7 @@
 							
 								<div class="col-lg-8 col-md-12">
 									{% if messageSearch %}
-								<p align="left" class="message"><font color="">{{ messageSearch | safe}}</font></p>
+								<p align="left" class="message"><font color="red"><i>{{ messageSearch | safe}}</i></font></p>
 								{% endif %}
 										<form autocomplete="on" action="/search" method = "POST">
 											<div class="form-row">
@@ -222,7 +222,7 @@
 
 					<div class="col-lg-8 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-9">
 						{% if message %}
-						<p align="left" class="message">{{ message | safe}}</p>
+						<p align="left" class="message"><font color="red"><i>{{ message | safe}}</i></font></p>
 						{% endif %}
 						<form action="/addfeedback" method = "POST">
 						<p align="justify"><font size = "4px"color="black">We can always use your help to improve our services. Please feel free to reach out to us and tell us how Revvie is doing. </font></p>

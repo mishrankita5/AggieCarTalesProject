@@ -203,14 +203,6 @@ def register():
 
         if firstName == '' or lastName == '' or email == '' or password == '' or yearOfGraduation == '':
             return render_template('register.html', message='Please enter all required fields')
-
-            #todo-- check if year of gradutaion and year of manufacture for car is valid year
-        
-        # if not (yearOfGraduation.isDigit()):
-        #     return render_template('register.html', message='Please enter valid graduation year')
-        # if not (func.len(yearOfGraduation)==4):
-        #     return render_template('register.html', message='Please enter valid graduation year')
-
         regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
         if not re.match(regex,email) :  
             return render_template('register.html', message='Please enter valid email')
@@ -281,16 +273,33 @@ def addreview():
 @app.route('/addfeedback', methods = ['POST'])
 def addfeedback():
     if request.method == 'POST':
-        # if not session.get('logged_in'):
-        #     return render_template ('index.html', message='Please login to enter feedback!')
-        # else:
-            # if session['logged_in'] == True:
         now = datetime.today()
         user_id = session['user_id']
         feedback = request.form['feedback']
         feedbackDate = datetime.strftime(now, "%Y-%m-%d")
         if feedback == '':
-            return render_template('index.html', message='Oops! Looks like you forgot to enter feedback')
+            records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate, Review.carCategory).order_by(Review.review_id.desc()).limit(4).all()
+            reviewVar = ["" for x in range(len(records))]
+            adminVar = ["" for x in range(len(records))]
+            carNameVar = ["" for x in range(len(records))]
+            carModelVar = ["" for x in range(len(records))]
+            reviewIdVar = ["" for x in range(len(records))]
+            carImageVar = ["" for x in range(len(records))]
+            reviewDateVar = ["" for x in range(len(records))]
+            carCategoryVar = ["" for x in range(len(records))]
+            i=0
+            for record in records:
+                reviewVar[i] = record.review 
+                adminVar[i] = record.firstName
+                carNameVar[i] = record.carName
+                carModelVar[i] = record.carModel
+                reviewIdVar[i] = record.review_id
+                carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+                reviewDateVar[i] = record.reviewDate
+                carCategoryVar[i] =record.carCategory
+
+                i=i+1
+            return render_template('index.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar,carCategoryVar=carCategoryVar,message='Oops! Looks like you forgot to enter feedback')
         data = Feedback(user_id, feedback,feedbackDate)  
         db.session.add(data)
         db.session.commit()
@@ -303,7 +312,28 @@ def search():
     if request.method == 'POST':
         search = request.form['searchText']
         if search=="":
-            return render_template('index.html', messageSearch='Please enter car name to start searching')
+            records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate, Review.carCategory).order_by(Review.review_id.desc()).limit(4).all()
+            reviewVar = ["" for x in range(len(records))]
+            adminVar = ["" for x in range(len(records))]
+            carNameVar = ["" for x in range(len(records))]
+            carModelVar = ["" for x in range(len(records))]
+            reviewIdVar = ["" for x in range(len(records))]
+            carImageVar = ["" for x in range(len(records))]
+            reviewDateVar = ["" for x in range(len(records))]
+            carCategoryVar = ["" for x in range(len(records))]
+            i=0
+            for record in records:
+                reviewVar[i] = record.review 
+                adminVar[i] = record.firstName
+                carNameVar[i] = record.carName
+                carModelVar[i] = record.carModel
+                reviewIdVar[i] = record.review_id
+                carImageVar[i] = b64encode(record.carImage).decode("utf-8")
+                reviewDateVar[i] = record.reviewDate
+                carCategoryVar[i] =record.carCategory
+
+                i=i+1
+            return render_template('index.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar,carCategoryVar=carCategoryVar,messageSearch='Please enter car name to start searching')
         search = search.lower()
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
         if len(records)==0:
