@@ -144,7 +144,10 @@
 <div class="database_container">
         <div>
           {% if message %}
-          <p style="margin-left: 100px;" align="left" class="message"><font color="red"><i>{{message}}</i></font></p>
+          <p style="margin-left: 100px;"align="left" class="message "><font color="red"><i>{{message}}</i></font></p>
+          {% endif %}
+          {% if messageSuccess %}
+          <p style="margin-left: 100px;" align="left" class="message"><font color="green"><i>{{messageSuccess}}</i></font></p>
           {% endif %}
           <form action="/showDatabase" method="POST">
             <fieldset class="p-4">

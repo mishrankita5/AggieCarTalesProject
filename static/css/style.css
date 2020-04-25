@@ -1358,7 +1358,6 @@ ul.pagination .active a {
   background: #f7f7f7;
 }
 
-
 @media (max-width: 480px) {
   .list-inline-item-blog {
     width: 100px !important;

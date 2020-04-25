@@ -163,6 +163,7 @@ def routeUserProfile():
 def routeSingleBlog():
     return render_template('single-blog.html')
 
+
 @app.route('/blog.html')
 def routeBlog():
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).order_by(Review.review_id.desc()).all()
@@ -311,29 +312,6 @@ def addfeedback():
 def search():
     if request.method == 'POST':
         search = request.form['searchText']
-        if search=="":
-            records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate, Review.carCategory).order_by(Review.review_id.desc()).limit(4).all()
-            reviewVar = ["" for x in range(len(records))]
-            adminVar = ["" for x in range(len(records))]
-            carNameVar = ["" for x in range(len(records))]
-            carModelVar = ["" for x in range(len(records))]
-            reviewIdVar = ["" for x in range(len(records))]
-            carImageVar = ["" for x in range(len(records))]
-            reviewDateVar = ["" for x in range(len(records))]
-            carCategoryVar = ["" for x in range(len(records))]
-            i=0
-            for record in records:
-                reviewVar[i] = record.review 
-                adminVar[i] = record.firstName
-                carNameVar[i] = record.carName
-                carModelVar[i] = record.carModel
-                reviewIdVar[i] = record.review_id
-                carImageVar[i] = b64encode(record.carImage).decode("utf-8")
-                reviewDateVar[i] = record.reviewDate
-                carCategoryVar[i] =record.carCategory
-
-                i=i+1
-            return render_template('index.html',len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar, carImageVar = carImageVar, reviewDateVar=reviewDateVar,carCategoryVar=carCategoryVar,messageSearch='Please enter car name to start searching')
         search = search.lower()
         records = db.session.query(Review).join(User,Review.user_id==User.user_id).add_columns(User.firstName,Review.carName,Review.carModel,Review.carCategory,Review.review,Review.review_id,Review.yearOfManufacturing, Review.carImage, Review.reviewDate).filter(func.lower(Review.carName).ilike('%'+search+'%')).order_by(Review.review_id.desc()).all()
         if len(records)==0:
@@ -358,6 +336,8 @@ def search():
             i=i+1
             
         return render_template("blog.html", len = len(records),reviewVar=reviewVar,adminVar=adminVar,carNameVar=carNameVar,carModelVar=carModelVar,reviewIdVar=reviewIdVar,carImageVar=carImageVar, reviewDateVar=reviewDateVar) 
+        
+
 
 
 @app.route('/deleteReview',methods =['POST'])
@@ -378,7 +358,7 @@ def deleteReview():
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
         feedbackRecords = db.session.query(Feedback).all()   
-    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords)
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords, messageSuccess="Deleted Succesfully!!")
         
 
 @app.route('/deleteUser',methods =['POST'])
@@ -414,7 +394,7 @@ def deleteUser():
         userRecords = db.session.query(User).all() 
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
         feedbackRecords = db.session.query(Feedback).all() 
-    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords)
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords, messageSuccess="Deleted Succesfully!!")
 
 
 @app.route('/deleteFeedback',methods =['POST'])
@@ -436,7 +416,7 @@ def deleteFeedback():
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
         feedbackRecords = db.session.query(Feedback).all()  
-    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords)
+    return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords , messageSuccess="Deleted Succesfully!!")
 
 
 @app.route('/readMore', methods =['POST'])
