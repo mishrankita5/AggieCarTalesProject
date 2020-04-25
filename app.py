@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "randomstring123"
 
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev':
     app.debug = True
@@ -364,9 +364,16 @@ def search():
 def deleteReview():
     if request.method == 'POST':
         reviewId = request.form['deleteReview']
-        record_obj = db.session.query(Review).filter(Review.review_id==reviewId).first()
-        db.session.delete(record_obj)
-        db.session.commit() 
+        record_obj = db.session.query(Review).filter(Review.review_id==reviewId).all()
+        if len(record_obj)==0:
+            session['database'] ='second'
+            userRecords = db.session.query(User).all()
+            reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
+            feedbackRecords = db.session.query(Feedback).all()   
+            return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords,message="Please enter valid Review Id from table to delete")
+        for record in record_obj:
+            db.session.delete(record)
+            db.session.commit() 
         session['database'] ='second'
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
@@ -379,7 +386,17 @@ def deleteUser():
     if request.method == 'POST':
         userId = request.form['deleteUser']
         #delete review posted by user
+        record_obj = db.session.query(User).filter(User.user_id==userId).all()
+        if len(record_obj)==0:
+            session['database'] ='second'
+            userRecords = db.session.query(User).all() 
+            reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
+            feedbackRecords = db.session.query(Feedback).all() 
+            return render_template("database.html", reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords ,message="Please enter valid User Id from table to delete")
+            
         review_obj = db.session.query(Review).filter(Review.user_id==userId).all()
+        if len(review_obj)==0:
+            render_template("database.html",message="Please enter valid User Id from table to delete")
         for record in review_obj:
             db.session.delete(record)
             db.session.commit() 
@@ -389,9 +406,10 @@ def deleteUser():
             db.session.delete(record)
             db.session.commit() 
         #delete user
-        record_obj = db.session.query(User).filter(User.user_id==userId).first()
-        db.session.delete(record_obj)
-        db.session.commit() 
+
+        for record in record_obj:
+            db.session.delete(record)
+            db.session.commit() 
         session['database'] ='second'
         userRecords = db.session.query(User).all() 
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()     
@@ -403,9 +421,17 @@ def deleteUser():
 def deleteFeedback():
     if request.method == 'POST':
         feedbackId = request.form['deleteFeedback']
-        record_obj = db.session.query(Feedback).filter(Feedback.feedback_id==feedbackId).first()
-        db.session.delete(record_obj)
-        db.session.commit() 
+            
+        record_obj = db.session.query(Feedback).filter(Feedback.feedback_id==feedbackId).all()
+        if len(record_obj) ==0:
+            session['database'] ='second'
+            userRecords = db.session.query(User).all()
+            reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   
+            feedbackRecords = db.session.query(Feedback).all() 
+            return render_template("database.html",reviewRecords=reviewRecords, userRecords=userRecords,feedbackRecords=feedbackRecords, message="Please enter valid Feedback Id from table to delete")
+        for record in record_obj:
+            db.session.delete(record)
+            db.session.commit() 
         session['database'] ='second'
         userRecords = db.session.query(User).all()
         reviewRecords = db.session.query(Review).add_columns(Review.review_id,Review.user_id, Review.carName, Review.carModel, Review.carCategory, Review.review,Review.yearOfManufacturing, Review.reviewDate).all()   

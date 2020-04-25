@@ -24,6 +24,41 @@
     <link href="../static/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet" />
     <!-- CUSTOM CSS -->
     <link href="../static/css/style.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+      function validateFormFeedback() {
+        var a = document.forms["FormFeedback"]["deleteFeedback"].value;
+        if (a == null || a.length==0 || a=="" ) {
+          alert("Please enter valid Feedback Id");
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+
+      function validateFormUser() {
+        var a = document.forms["FormUser"]["deleteUser"].value;
+        if (a == null || a.length==0 || a=="" ) {
+          alert("Please enter valid User Id");
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+
+      function validateFormReview() {
+        var a = document.forms["FormReview"]["deleteReview"].value;
+        if (a == null || a.length==0 || a=="" ) {
+          alert("Please enter valid Review Id");
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+    </script>
   </head>
   <style type="text/css"> 
       
@@ -108,6 +143,9 @@
 =================================-->
 <div class="database_container">
         <div>
+          {% if message %}
+          <p style="margin-left: 100px;" align="left" class="message"><font color="red"><i>{{message}}</i></font></p>
+          {% endif %}
           <form action="/showDatabase" method="POST">
             <fieldset class="p-4">
               <div id="page_not_found">
@@ -120,13 +158,14 @@
                 >
                   Show Database
               </button>
+              
             </fieldset>
           </form>
         </div>
+
         {%if session['database'] == 'second'%}
         <!-- Review Table Settings-->
         <div class="table_fetch">
-          
             <h1 class="tableHeading">Review Table</h1>
           
             
@@ -157,10 +196,10 @@
               </tbody>
             </table>
             <div>
-              <form autocomplete="on" action="/deleteReview" method = "POST">
+              <form autocomplete="on" action="/deleteReview" method = "POST" name="FormReview" onsubmit="return validateFormReview()">
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="text" name="deleteReview" class="form-control my-2 my-lg-1 "  placeholder="Review Id">
+                    <input type="number" min="1" name="deleteReview" class="form-control my-2 my-lg-1 "  placeholder="Review Id">
                   </div>
                   <div class="form-group col-md-2 align-self-center">
                     <button type="submit" value ="deleteReview" class="btn bg-primary text-white">Delete</button>
@@ -199,10 +238,10 @@
             </div>
 
             <div>
-              <form autocomplete="on" action="/deleteUser" method = "POST">
+              <form autocomplete="on" action="/deleteUser" method = "POST" name="FormUser" onsubmit="return validateFormUser()">
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="text" name="deleteUser" class="form-control my-2 my-lg-1 "  placeholder="User Id">
+                    <input type="number" min="1" name="deleteUser" class="form-control my-2 my-lg-1 "  placeholder="User Id">
                   </div>
                   <div class="form-group col-md-2 align-self-center">
                     <button type="submit" value ="deleteUser" class="btn bg-primary text-white">Delete</button>
@@ -212,7 +251,9 @@
             </div>
         </div>
         <!-- Feedback Table Settings-->
+
         <div class="table_fetch">
+
           <h1 class="tableHeading">Feedback Table</h1>
           <table border="1" align="left" cellpadding="5px" style="margin-right: 1100px;" class="table-responsive-md" >
             <tbody>
@@ -233,10 +274,10 @@
             </tbody>
           </table>
           <div>
-            <form autocomplete="on" action="/deleteFeedback" method = "POST">
+            <form autocomplete="on" name="FormFeedback" onsubmit="return validateFormFeedback()"  action="/deleteFeedback" method = "POST">
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <input type="text" name="deleteFeedback" class="form-control my-2 my-lg-1 "  placeholder="Feedback Id">
+                  <input type="number" min="1" name="deleteFeedback" class="form-control my-2 my-lg-1 "  placeholder="Feedback Id">
                 </div>
                 <div class="form-group col-md-2 align-self-center">
                   <button type="submit" value ="deleteFeedback" class="btn bg-primary text-white">Delete</button>

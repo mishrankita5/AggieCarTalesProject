@@ -97,7 +97,7 @@
     <section class="ad-post bg-gray py-5">
       <div class="container">
         {% if message %}
-              <p class="message" color="red">&nbsp;&nbsp;{{ message | safe}}</p>
+              <p class="message" ><font color="red">{{ message | safe}}</font></p>
               {% endif %}
         <form action="/addreview" method = "POST" enctype="multipart/form-data">
           <!-- Post Your ad start -->
@@ -108,18 +108,18 @@
               </div>
               <div class="col-lg-6">
                 <h6 class="font-weight-bold pt-4 pb-1">Car Name</h6>
-                <input type="text" name ="carName" class="border w-100 p-2 bg-white text-capitalize" placeholder="Car Name goes here" />
+                <input type="text" name ="carName" class="border w-100 p-2 bg-white text-capitalize" placeholder="Car Name goes here" required/>
                 <h6 class="font-weight-bold pt-4 pb-1">Model</h6>
-                <input type="text" name = "carModel" class="border w-100 p-2 bg-white text-capitalize" placeholder="Enter Car Model" />
+                <input type="text" name = "carModel" class="border w-100 p-2 bg-white text-capitalize" placeholder="Enter Car Model" required />
                 <h6 class="font-weight-bold pt-4 pb-1">Year</h6>
-                <input type ="number"  name= "yearOfManufacturing" class="border w-100 p-2 bg-white text-capitalize" placeholder="Year" min="1995" max="2030"/>
+                <input type ="number"  name= "yearOfManufacturing" class="border w-100 p-2 bg-white text-capitalize" placeholder="Year" min="1995" max="2030" required/>
                 <h6 class="font-weight-bold pt-4 pb-1">Review:</h6>
                 <textarea
                   name="review"
                   id=""
                   class="border p-3 w-100"
                   rows="7"
-                  placeholder="Write a detailed review about your car"
+                  placeholder="Write a detailed review about your car" required
                 ></textarea>
               </div>
               <div class="col-lg-6">
@@ -136,7 +136,7 @@
                 <h6 class="font-weight-bold pt-4 pb-1">Select Photo/Video To Attach:</h6>
                 <div class="choose-file text-center my-2 py-4 rounded">
                   <label for="file-upload">
-                      <input class="d-block btn btn-transparent text-black-50 my-3 select-files" type="file" id="myfile" name="fileimg">
+                      <input class="d-block btn btn-transparent text-black-50 my-3 select-files" type="file" id="myfile" name="fileimg" required>
                       <span class="d-block">Maximum upload file size: 500 KB</span>
                   </label>
                 </div>
